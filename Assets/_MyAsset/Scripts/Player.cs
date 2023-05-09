@@ -28,38 +28,38 @@ public class Player : MonoBehaviour
         transform.Translate(direction * Time.deltaTime * vitesse);
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4f, 2), 0f);
 
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             playerAnim.SetBool("Mouvements", true);
 
-
-
-        }
- 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                playerAnim.SetBool("Cour", true);
-            }
-            else
-            {
-                playerAnim.SetBool("Cour", !true);
-            }
         
-        //if (x < 0f)
-        //{
-        //    playerAnim.SetBool("Droite", true);
-        //    playerAnim.SetBool("Gauche", !true);
-        //}
-        //else if (x > 0f)
-        //{
-        //    playerAnim.SetBool("Droite", !true);
-        //    playerAnim.SetBool("Gauche", true);
-        //}
-        //else
-        //{
-        //    playerAnim.SetBool("Droite", !true);
-        //    playerAnim.SetBool("Gauche", !true);
-        //}
+        
+        }
+        else
+        {
+            playerAnim.SetBool("Mouvements", !true);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            playerAnim.SetBool("Cour", true);
+        }
+        else
+        {
+            playerAnim.SetBool("Cour", !true);
+        }
+
+
+        if (x < 0f)
+        {
+            playerAnim.SetBool("Droite", true);
+        }
+        else if (x > 0f)
+        {
+            playerAnim.SetBool("Droite", !true);
+            
+        }
+  
 
 
 
