@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Mouvement();
+        Attaquer();
     }
 
     void Mouvement()
@@ -80,6 +81,10 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space)){
         playerAnim.SetBool("Attaquer", true);
+        }
+        else
+        {
+            playerAnim.SetBool("Attaquer", !true);
         }
     }
 }
