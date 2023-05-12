@@ -59,9 +59,27 @@ public class Player : MonoBehaviour
             playerAnim.SetBool("Droite", !true);
             
         }
-  
 
+    }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ennemi"))
+        {
+            vies--;
+            playerAnim.SetBool("Degats", true);
+            if (vies <= 0)
+            {
+                Destroy(gameObject);
+                playerAnim.SetBool("Mort", true);
+            }
+        }
+    }
 
+    void Attaquer()
+    {
+        if(Input.GetKeyDown(KeyCode.Space)){
+        playerAnim.SetBool("Attaquer", true);
+        }
     }
 }
