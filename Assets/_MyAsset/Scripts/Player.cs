@@ -45,7 +45,8 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(x, 0f,0f);
 
         //transform.Translate(direction * Time.deltaTime * vitesse);
-        playerRb.velocity = new Vector3(direction * Time.deltaTime * vitesse, playerRb.velocity.y,0f);
+       // playerRb.velocity = new Vector3(direction * Time.deltaTime * vitesse, 0f ,0f);
+
         //transform.position = new Vector3(transform.position.x, 0f, 0f);
 
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
