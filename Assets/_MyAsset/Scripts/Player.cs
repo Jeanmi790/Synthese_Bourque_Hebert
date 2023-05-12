@@ -2,39 +2,55 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int vies = 3;
+    [Header("Vies")]
+    [SerializeField] int vies = 100;
+    [Header("Mouvements")]
     [SerializeField] float vitesse = 4;
+    [SerializeField] float saut = 5;
+    [Header("Attaques")]
+    
+    [SerializeField] float attaque = 10;
+    [SerializeField] float kick = 5;
+    [SerializeField] float radiusAttack = 0.5f;
 
     Animator playerAnim = default;
+    float playersize = default;
+    Rigidbody2D playerRb = default;
+
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
+        playersize = transform.localScale.x;
+        playerRb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Mouvement();
+        
         Attaquer();
+     
+    }
+
+    void FixedUpdate() {
+        
+            Mouvement();
+           Sauter();
     }
 
     void Mouvement()
     {
         float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        Vector3 direction = new Vector3(x, 0f,0f);
 
-        Vector3 direction = new Vector3(x, y, 0f);
-
-        transform.Translate(direction * Time.deltaTime * vitesse);
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4f, 2), 0f);
+        //transform.Translate(direction * Time.deltaTime * vitesse);
+        playerRb.velocity = new Vector3(direction * Time.deltaTime * vitesse, playerRb.velocity.y,0f);
+        //transform.position = new Vector3(transform.position.x, 0f, 0f);
 
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
             playerAnim.SetBool("Mouvements", true);
-
-        
-        
         }
         else
         {
@@ -44,6 +60,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             playerAnim.SetBool("Cour", true);
+            
         }
         else
         {
@@ -51,15 +68,19 @@ public class Player : MonoBehaviour
         }
 
 
+
+
         if (x < 0f)
         {
-            playerAnim.SetBool("Droite", true);
+            transform.localScale = new Vector3(-playersize, playersize, playersize);
         }
         else if (x > 0f)
         {
-            playerAnim.SetBool("Droite", !true);
+            transform.localScale = new Vector3(playersize, playersize, playersize);
             
         }
+
+
 
     }
 
@@ -85,6 +106,35 @@ public class Player : MonoBehaviour
         else
         {
             playerAnim.SetBool("Attaquer", !true);
+        }
+
+        if(Input.GetKey(KeyCode.F)){
+            playerAnim.SetBool("Kick", true);
+        }
+        else
+        {
+            playerAnim.SetBool("Kick", !true);
+        }
+
+    }
+
+    // void Attack(){
+    //     Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack);
+    //     foreach(Collider2D enemy in hitEnemies){
+    //         enemy.GetComponent<Ennemi>().TakeDamage(attaque);
+    //     }
+    // }
+
+     void Sauter()
+    {
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            playerAnim.SetBool("Saut", true);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, saut), ForceMode2D.Impulse);
+        }
+        else
+        {
+            playerAnim.SetBool("Saut", !true);
         }
     }
 }
