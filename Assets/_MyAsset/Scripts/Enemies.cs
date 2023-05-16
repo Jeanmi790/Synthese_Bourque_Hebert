@@ -12,6 +12,7 @@ public class Enemies : MonoBehaviour
     [SerializeField] float attackPower;
     [SerializeField] float attackSpeed;
     [SerializeField] float radiusAttack;
+    
 
     private Animator enemyAnim = default;
     private Rigidbody2D enemyRb = default;
@@ -65,6 +66,18 @@ public class Enemies : MonoBehaviour
             enemyAnim.SetBool("Walk", false);
         }
            
+    }
+
+    public void TakingDamage(float dps)
+    {
+        health -= (int)dps;
+        Debug.Log("HP:"+health);
+       // enemyAnim.SetBool("Hit", true);
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            //enemyAnim.SetBool("Dead", true);
+        }
     }
 
 }

@@ -2,21 +2,30 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Header("Vies")]
-    [SerializeField] float vies = 100;
-    [Header("Mouvements")]
-    [SerializeField] float vitesse = 4;
-    [SerializeField] float vitesseCour = 8;
-    [SerializeField] float saut = 5;
+    [Header("health")]
+    [SerializeField] float health = 10;
+    [Header("Movings")]
+    [SerializeField] float walkSpeed = 4;
+    [SerializeField] float runSpeed = 8;
+    [SerializeField] float jump = 5;
+    [SerializeField] Transform radiusGroundCheck;
+    [SerializeField] float radiusGround = 0.2f;
+    [SerializeField] LayerMask groundLayers;
+    bool isGrounded;
     [Header("Attaques")]
-
-    [SerializeField] float attaque = 10;
-    [SerializeField] float kick = 5;
+    [SerializeField] float attackStrenght = 10;
+    [SerializeField] float kickStrenght = 5;
     [SerializeField] float radiusAttack = 0.5f;
+    [SerializeField] Transform AttackRadius;
+    [SerializeField] LayerMask enemiesLayers;
 
     Animator playerAnim = default;
     float playersize = default;
     Rigidbody2D playerRb = default;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +33,7 @@ public class Player : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         playersize = transform.localScale.x;
         playerRb = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -34,37 +44,37 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Mouvement();
+        Moving();
         Sauter();
     }
 
-    void Mouvement()
+    void Moving()
     {
         float x = Input.GetAxis("Horizontal");
         Vector2 direction = new Vector2(x, 0f);
 
-        float vitesseActuelle = Input.GetKey(KeyCode.LeftShift) ? vitesseCour : vitesse;
+        float actualWalkSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
 
-        playerRb.velocity = direction * vitesseActuelle;
+        playerRb.velocity = direction * actualWalkSpeed;
 
 
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+        if (Input.GetButton("Horizontal"))
         {
-            playerAnim.SetBool("Mouvements", true);
+            playerAnim.SetBool("Moving", true);
         }
         else
         {
-            playerAnim.SetBool("Mouvements", !true);
+            playerAnim.SetBool("Moving", !true);
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            playerAnim.SetBool("Cour", true);
+            playerAnim.SetBool("Run", true);
 
         }
         else
         {
-            playerAnim.SetBool("Cour", !true);
+            playerAnim.SetBool("Run", !true);
         }
 
 
@@ -86,30 +96,30 @@ public class Player : MonoBehaviour
 
     void Attaquer()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButton("Fire1"))
         {
-            playerAnim.SetBool("Attaquer", true);
-           
-
-            //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack);
-            //foreach (Collider2D Ennemie in hitEnemies)
-            //{
-            //    Ennemie.GetComponent<Ennemie>().PrendreDegats(attaque);
-            //}
+            playerAnim.SetBool("Attack", true);
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack, enemiesLayers);
+            foreach (Collider2D Enemies in hitEnemies)
+            {
+                Debug.Log("Ennemie hit");
+                //Ennemie.GetComponent<Ennemie>().PrendreDegats(attackStrenght);
+            }
         }
         else
         {
-            playerAnim.SetBool("Attaquer", !true);
+            playerAnim.SetBool("Attack", !true);
         }
 
         if (Input.GetKey(KeyCode.F))
         {
             playerAnim.SetBool("Kick", true);
-            //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack);
-            //foreach (Collider2D Ennemie in hitEnemies)
-            //{
-            //    Ennemie.GetComponent<Ennemie>().PrendreDegats(kick);
-            //}
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack, enemiesLayers);
+            foreach (Collider2D Enemies in hitEnemies)
+            {
+                Debug.Log("Ennemie hit");
+                //Ennemie.GetComponent<Ennemie>().PrendreDegats(kickStrenght);
+            }
         }
         else
         {
@@ -118,35 +128,47 @@ public class Player : MonoBehaviour
 
     }
 
-    public void PrendreDegats(float degats)
+    public void TakindDamage(float dps)
     {
-        vies -= degats;
-        playerAnim.SetBool("Degats", true);
-        if (vies <= 0)
+        health -= dps;
+        playerAnim.SetBool("Dps", true);
+        if (health <= 0)
         {
             Destroy(gameObject);
-            playerAnim.SetBool("Mort", true);
+            playerAnim.SetBool("Dead", true);
         }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ennemi"))
+        if (collision.gameObject.CompareTag("Enemies"))
         {
-            PrendreDegats(1);
+            //PrendreDegats(1);
         }
     }
 
     void Sauter()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        isGrounded = Physics2D.OverlapCircle(radiusGroundCheck.position, radiusGround, groundLayers);
+        if (Input.GetButton("Jump") && isGrounded)
         {
-            playerAnim.SetBool("Saut", true);
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, saut), ForceMode2D.Impulse);
+            playerAnim.SetBool("Jump", true);
+
+            playerRb.velocity = new Vector2(playerRb.velocity.x, jump);
         }
         else
         {
-            playerAnim.SetBool("Saut", !true);
+            playerAnim.SetBool("Jump", !true);
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (AttackRadius == null && radiusGroundCheck == null)
+            return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(AttackRadius.position, radiusAttack);
+        Gizmos.DrawWireSphere(radiusGroundCheck.position, radiusGround);
     }
 }
