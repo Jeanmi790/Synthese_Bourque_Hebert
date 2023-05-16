@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
             foreach (Collider2D Enemies in hitEnemies)
             {
                 Debug.Log("Ennemie hit");
-                //Ennemie.GetComponent<Ennemie>().PrendreDegats(attackStrenght);
+                Enemies.GetComponent<Enemies>().TakingDamage(attackStrenght);
             }
         }
         else
@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
             foreach (Collider2D Enemies in hitEnemies)
             {
                 Debug.Log("Ennemie hit");
-                //Ennemie.GetComponent<Ennemie>().PrendreDegats(kickStrenght);
+                Enemies.GetComponent<Enemies>().TakingDamage(kickStrenght);
             }
         }
         else

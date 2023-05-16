@@ -76,6 +76,7 @@ public class Enemies : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            Debug.Log("Enemy is dead");
             //enemyAnim.SetBool("Dead", true);
         }
     }
