@@ -1,30 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Personnage : MonoBehaviour
+public class Personnage : MonoBehaviour
 {
-    protected int vies;
-    protected float vitesse;
-    protected float attaque;
-    protected float radiusAttaque;
+    [Header("Vies")]
+    [SerializeField] int vies = 100;
+    [Header("Mouvements")]
+    [SerializeField] float vitesse = 4;
+    [SerializeField] float saut = 5;
+    [Header("Attaques")]
 
-    protected Animator persoAnim;
-    protected float persoSize;
-    protected Rigidbody2D persoRb;
+    [SerializeField] float attaque = 10;
 
-    public Personnage(int vies, float vitesse, float attaque, float radiusAttaque) 
+    void Start()
     {
-        this.vies = vies;
-        this.vitesse = vitesse;
-        this.attaque = attaque;
-        this.radiusAttaque = radiusAttaque;
-        persoSize = transform.localScale.x;
+        
     }
 
-
-    protected abstract void Mouvement();
-
-
-    protected abstract void Attaquer();
-
-
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

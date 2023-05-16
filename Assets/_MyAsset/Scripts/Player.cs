@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("Vies")]
-    [SerializeField] float vies = 100;
+    [SerializeField] int vies = 100;
     [Header("Mouvements")]
     [SerializeField] float vitesse = 4;
     [SerializeField] float vitesseCour = 8;
@@ -29,24 +29,30 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Attaquer();
+
+
     }
 
     void FixedUpdate()
     {
         Mouvement();
         Sauter();
+
     }
 
     void Mouvement()
     {
         float x = Input.GetAxis("Horizontal");
-        Vector2 direction = new Vector2(x, 0f);
+        Vector3 direction = new Vector3(x, 0f, 0f);
 
         float vitesseActuelle = Input.GetKey(KeyCode.LeftShift) ? vitesseCour : vitesse;
 
         playerRb.velocity = direction * vitesseActuelle;
 
+
+        //transform.position = new Vector3(transform.position.x, 0f, 0f);
 
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
@@ -82,20 +88,25 @@ public class Player : MonoBehaviour
 
     }
 
-
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ennemi"))
+        {
+            vies--;
+            playerAnim.SetBool("Degats", true);
+            if (vies <= 0)
+            {
+                Destroy(gameObject);
+                playerAnim.SetBool("Mort", true);
+            }
+        }
+    }
 
     void Attaquer()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerAnim.SetBool("Attaquer", true);
-           
-
-            //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack);
-            //foreach (Collider2D Ennemie in hitEnemies)
-            //{
-            //    Ennemie.GetComponent<Ennemie>().PrendreDegats(attaque);
-            //}
         }
         else
         {
@@ -105,11 +116,6 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.F))
         {
             playerAnim.SetBool("Kick", true);
-            //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack);
-            //foreach (Collider2D Ennemie in hitEnemies)
-            //{
-            //    Ennemie.GetComponent<Ennemie>().PrendreDegats(kick);
-            //}
         }
         else
         {
@@ -118,24 +124,12 @@ public class Player : MonoBehaviour
 
     }
 
-    public void PrendreDegats(float degats)
-    {
-        vies -= degats;
-        playerAnim.SetBool("Degats", true);
-        if (vies <= 0)
-        {
-            Destroy(gameObject);
-            playerAnim.SetBool("Mort", true);
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ennemi"))
-        {
-            PrendreDegats(1);
-        }
-    }
+    // void Attack(){
+    //     Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack);
+    //     foreach(Collider2D enemy in hitEnemies){
+    //         enemy.GetComponent<Ennemi>().TakeDamage(attaque);
+    //     }
+    // }
 
     void Sauter()
     {
