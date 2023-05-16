@@ -9,7 +9,7 @@ public class Enemies : MonoBehaviour
     [SerializeField] int health;
     [Header("Movement")]
     [SerializeField] float walkSpeed;
-    [SerializeField] BoxCollider2D walkRadius;
+    [SerializeField] float distance;
     [Header("Attacks")]
     [SerializeField] float attackPower;
     [SerializeField] float attackSpeed;
@@ -62,7 +62,7 @@ public class Enemies : MonoBehaviour
             return;
         }
 
-        if (Vector2.Distance(target.position, transform.position) <= walkRadius.size.x)
+        if (Vector2.Distance(target.position, transform.position) <= distance)
         {
             enemyAnim.SetBool("Walk", false);
         }
@@ -77,7 +77,7 @@ public class Enemies : MonoBehaviour
 
     private void Attack()
     {
-        if (Vector2.Distance(target.position, transform.position) <= walkRadius.size.x && Time.time > canAttack)
+        if (Vector2.Distance(target.position, transform.position) <= distance && Time.time > canAttack)
         {
             randomAttack = UnityEngine.Random.Range(0, attackLenght);
             enemyAnim.SetInteger("RandomAttack", randomAttack);
