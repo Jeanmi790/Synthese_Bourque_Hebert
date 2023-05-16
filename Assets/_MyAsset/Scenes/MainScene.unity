@@ -5300,6 +5300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2028385777}
+  - component: {fileID: 2028385778}
   m_Layer: 0
   m_Name: AttackRadius
   m_TagString: Untagged
