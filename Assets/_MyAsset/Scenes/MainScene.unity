@@ -5033,6 +5033,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1046409761127584848, guid: 7f09e5de7e6ca1d44a83ca8c3e1248ed, type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1046409761127584848, guid: 7f09e5de7e6ca1d44a83ca8c3e1248ed, type: 3}
       propertyPath: walkSpeed
       value: 0.21
       objectReference: {fileID: 0}
@@ -5373,6 +5377,7 @@ MonoBehaviour:
   enemiesLayers:
     serializedVersion: 2
     m_Bits: 128
+  attackSpeed: 1
 --- !u!1 &1758306759
 GameObject:
   m_ObjectHideFlags: 0

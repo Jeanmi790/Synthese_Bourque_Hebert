@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
     [Header("health")]
     [SerializeField] float health = 10;
-    [Header("Movings")]
+    [Header("Moving")]
     [SerializeField] float walkSpeed = 4;
     [SerializeField] float runSpeed = 8;
     [SerializeField] float jump = 5;
@@ -12,12 +12,15 @@ public class Player : MonoBehaviour
     [SerializeField] float radiusGround = 0.2f;
     [SerializeField] LayerMask groundLayers;
     bool isGrounded;
-    [Header("Attaques")]
+    [Header("Attacks")]
     [SerializeField] float attackStrenght = 10;
     [SerializeField] float kickStrenght = 5;
     [SerializeField] float radiusAttack = 0.5f;
     [SerializeField] Transform AttackRadius;
     [SerializeField] LayerMask enemiesLayers;
+    [SerializeField] float attackSpeed = 2f;
+
+    float nextAttackTime = 0f;
 
     Animator playerAnim = default;
     float playersize = default;
@@ -39,8 +42,23 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Attaquer();
+        if(Time.time >= nextAttackTime)
+        {
+            if (Input.GetButton("Fire1"))
+            {
+                Attack();
+                nextAttackTime = Time.time + 1f / attackSpeed;
+            }
+            else if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.F))
+            {
+                KickAttack();
+                nextAttackTime = Time.time + 1f / attackSpeed;
+            }
+        }
+    
+
     }
+
 
     void FixedUpdate()
     {
@@ -92,50 +110,38 @@ public class Player : MonoBehaviour
 
     }
 
-
-
-    void Attaquer()
+    void DealDamage(float dps)
     {
-        if (Input.GetButton("Fire1"))
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack, enemiesLayers);
+        foreach (Collider2D Enemies in hitEnemies)
         {
-            playerAnim.SetBool("Attack", true);
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack, enemiesLayers);
-            foreach (Collider2D Enemies in hitEnemies)
-            {
-                Debug.Log("Ennemie hit");
-                Enemies.GetComponent<Enemies>().TakingDamage(attackStrenght);
-            }
+            Debug.Log("Ennemie hit");
+            Enemies.GetComponent<Enemies>().TakingDamage(dps);
         }
-        else
-        {
-            playerAnim.SetBool("Attack", !true);
-        }
+    }
 
-        if (Input.GetKey(KeyCode.F))
-        {
-            playerAnim.SetBool("Kick", true);
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack, enemiesLayers);
-            foreach (Collider2D Enemies in hitEnemies)
-            {
-                Debug.Log("Ennemie hit");
-                Enemies.GetComponent<Enemies>().TakingDamage(kickStrenght);
-            }
-        }
-        else
-        {
-            playerAnim.SetBool("Kick", !true);
-        }
+    void Attack()
+    {
+        playerAnim.SetTrigger("Attack");
+        DealDamage(attackStrenght);
 
     }
 
-    public void TakindDamage(float dps)
+    void KickAttack()
+    {
+            playerAnim.SetTrigger("Kick");
+            DealDamage(kickStrenght);
+    }
+
+
+    public void TakingDamage(float dps)
     {
         health -= dps;
         playerAnim.SetBool("Dps", true);
         if (health <= 0)
         {
             Destroy(gameObject);
-            playerAnim.SetBool("Dead", true);
+            playerAnim.SetTrigger("Dead");
         }
     }
 
