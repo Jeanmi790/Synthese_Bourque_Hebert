@@ -13,7 +13,8 @@ public class Enemies : MonoBehaviour
     [Header("Attacks")]
     [SerializeField] float attackPower;
     [SerializeField] float attackSpeed;
-    [SerializeField] float attackRadius;
+    [SerializeField] float radiusAttack;
+    
 
 
     private Animator enemyAnim = default;
@@ -89,4 +90,18 @@ public class Enemies : MonoBehaviour
             enemyAnim.SetBool("Attack", false);
         }
     }
+
+    public void TakingDamage(float dps)
+    {
+        health -= (int)dps;
+        Debug.Log("HP:"+health);
+       // enemyAnim.SetBool("Hit", true);
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            Debug.Log("Enemy is dead");
+            //enemyAnim.SetBool("Dead", true);
+        }
+    }
+
 }
