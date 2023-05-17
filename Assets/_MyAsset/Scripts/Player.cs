@@ -98,25 +98,26 @@ public class Player : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack, enemiesLayers);
         foreach (Collider2D Enemies in hitEnemies)
         {
-            Debug.Log("Ennemie hit");
+            //Debug.Log("Ennemie hit");
             Enemies.GetComponent<Enemies>().TakingDamage(dps);
         }
     }
 
     void Attack()
     {
-        if (Time.time >= nextAttackTime)
+        if (Time.time > nextAttackTime)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SwordAttack();
-                nextAttackTime = Time.time + 1f / attackSpeed;
+                nextAttackTime = Time.time + 0.5f / attackSpeed;
             }
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 KickAttack();
-                nextAttackTime = Time.time + 1f / attackSpeed;
+                nextAttackTime = Time.time + 0.5f / attackSpeed;
             }
+            
         }
     }
 
