@@ -5122,7 +5122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492180248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.217, y: -0.329, z: 0}
+  m_LocalPosition: {x: -0.217, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5332,8 +5332,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.089999996, y: -0.34}
-      - {x: -0.08, y: -0.32999998}
+    - - {x: -0.094642036, y: -0.3260739}
+      - {x: -0.06762144, y: -0.26655912}
       - {x: 0.04, y: 0.04}
       - {x: 0.049999997, y: 0.06}
       - {x: 0.049999997, y: 0.13}
@@ -5343,12 +5343,12 @@ PolygonCollider2D:
       - {x: -0.22999999, y: 0.29999998}
       - {x: -0.34, y: 0.16}
       - {x: -0.35, y: 0.089999996}
-      - {x: -0.35, y: -0.34}
-      - {x: -0.26, y: -0.34}
-      - {x: -0.25, y: -0.32999998}
+      - {x: -0.35154712, y: -0.32452667}
+      - {x: -0.25535795, y: -0.32452655}
+      - {x: -0.24226327, y: -0.22942293}
       - {x: -0.19999999, y: -0.17999999}
-      - {x: -0.19999999, y: -0.32999998}
-      - {x: -0.17, y: -0.34}
+      - {x: -0.1829792, y: -0.29441127}
+      - {x: -0.17464183, y: -0.326074}
 --- !u!114 &1668592280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5364,7 +5364,7 @@ MonoBehaviour:
   health: 10
   walkSpeed: 4
   runSpeed: 8
-  jump: 5
+  jump: 6.24
   radiusGroundCheck: {fileID: 1492180249}
   radiusGround: 0.08
   groundLayers:

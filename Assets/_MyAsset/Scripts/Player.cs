@@ -27,9 +27,6 @@ public class Player : MonoBehaviour
     Rigidbody2D playerRb = default;
 
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -42,20 +39,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.time >= nextAttackTime)
-        {
-            if (Input.GetButton("Fire1"))
-            {
-                Attack();
-                nextAttackTime = Time.time + 1f / attackSpeed;
-            }
-            else if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.F))
-            {
-                KickAttack();
-                nextAttackTime = Time.time + 1f / attackSpeed;
-            }
-        }
-    
+
+        Attack();
 
     }
 
@@ -63,7 +48,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Moving();
-        Sauter();
+        Sauter();   
     }
 
     void Moving()
@@ -106,8 +91,6 @@ public class Player : MonoBehaviour
 
         }
 
-
-
     }
 
     void DealDamage(float dps)
@@ -122,15 +105,31 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
+        if (Time.time >= nextAttackTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SwordAttack();
+                nextAttackTime = Time.time + 1f / attackSpeed;
+            }
+            if (Input.GetKey(KeyCode.F))
+            {
+                KickAttack();
+                nextAttackTime = Time.time + 1f / attackSpeed;
+            }
+        }
+    }
+
+    void SwordAttack()
+    {
         playerAnim.SetTrigger("Attack");
         DealDamage(attackStrenght);
-
     }
 
     void KickAttack()
     {
-            playerAnim.SetTrigger("Kick");
-            DealDamage(kickStrenght);
+        playerAnim.SetTrigger("Kick");
+        DealDamage(kickStrenght);
     }
 
 
@@ -156,7 +155,8 @@ public class Player : MonoBehaviour
     void Sauter()
     {
         isGrounded = Physics2D.OverlapCircle(radiusGroundCheck.position, radiusGround, groundLayers);
-        if (Input.GetButton("Jump") && isGrounded)
+
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
             playerAnim.SetBool("Jump", true);
 
@@ -166,6 +166,7 @@ public class Player : MonoBehaviour
         {
             playerAnim.SetBool("Jump", !true);
         }
+
     }
 
     void OnDrawGizmosSelected()
