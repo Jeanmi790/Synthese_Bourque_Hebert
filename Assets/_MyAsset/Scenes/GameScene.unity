@@ -182,6 +182,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5024867350188720132, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: m_Mass
+      value: 0.91726077
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024867350188720132, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024867350188720132, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: m_UseAutoMass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024867350188720132, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5024867350188720135, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
       propertyPath: m_RootOrder
       value: 1

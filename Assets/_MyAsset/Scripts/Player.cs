@@ -54,8 +54,9 @@ public class Player : MonoBehaviour
     void Moving()
     {
         float x = Input.GetAxis("Horizontal");
+        
        
-        Vector2 direction = new Vector2(x,0f);
+        Vector2 direction = new Vector2(x, 0f);
 
         float actualWalkSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
 
