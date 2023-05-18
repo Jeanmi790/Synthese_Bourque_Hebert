@@ -59,9 +59,9 @@ public class Player : MonoBehaviour
         Vector2 direction = new Vector2(x * actualWalkSpeed, playerRb.velocity.y);
         playerRb.velocity = direction;
 
-        playerAnim.SetBool("Moving", true ? Input.GetButton("Horizontal") : !true);
-        playerAnim.SetBool("Run", true ? Input.GetKey(KeyCode.LeftShift) : !true);
-        playerAnim.SetBool("Jump", true ? Input.GetButton("Jump") : !true);
+        playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
+        playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift) );
+        playerAnim.SetBool("Jump",  Input.GetButton("Jump") );
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
