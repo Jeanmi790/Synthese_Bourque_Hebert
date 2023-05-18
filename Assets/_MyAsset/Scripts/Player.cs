@@ -3,7 +3,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("health")]
-    [SerializeField] float health = 10;
+    [SerializeField] private int maxHealth;
+    [SerializeField] private HealthBar healthBar;
     [Header("Moving")]
     [SerializeField] float walkSpeed = 4;
     [SerializeField] float runSpeed = 8;
@@ -21,10 +22,16 @@ public class Player : MonoBehaviour
     [SerializeField] float attackSpeed = 1f;
 
     float nextAttackTime = 0f;
-
+    private int health;
     Animator playerAnim = default;
     float playersize = default;
     Rigidbody2D playerRb = default;
+
+    void Awake()
+    {
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
 
 
     // Start is called before the first frame update
@@ -95,7 +102,7 @@ public class Player : MonoBehaviour
 
     void DealDamage(float dps)
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack, enemiesLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackRadius.position, radiusAttack, enemiesLayers);
         foreach (Collider2D Enemies in hitEnemies)
         {
             //Debug.Log("Ennemie hit");
@@ -136,8 +143,9 @@ public class Player : MonoBehaviour
 
     public void TakingDamage(float dps)
     {
-        health -= dps;
+        health -= (int)dps;
         playerAnim.SetTrigger("Hit");
+        healthBar.SetHealth(health);
         if (health <= 0)
         {
             Die();

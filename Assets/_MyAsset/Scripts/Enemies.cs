@@ -6,26 +6,33 @@ using UnityEngine;
 public class Enemies : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] int health;
+    [SerializeField] private int maxHealth;
+    [SerializeField] private HealthBar healthBar;
     [Header("Movement")]
-    [SerializeField] float walkSpeed;
-    [SerializeField] float distance;
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float distance;
     [Header("Attacks")]
-    [SerializeField] float attackPower;
-    [SerializeField] float attackSpeed;
-    [SerializeField] float[] radiusAttack;
-    [SerializeField] Transform[] attackRadius;
-    [SerializeField] LayerMask playerLayer;
+    [SerializeField] private float attackPower;
+    [SerializeField] private float attackSpeed;
+    [SerializeField] private float[] radiusAttack;
+    [SerializeField] private Transform[] attackRadius;
+    [SerializeField] private LayerMask playerLayer;
 
-
+    
     private Animator enemyAnim = default;
     private Rigidbody2D enemyRb = default;
     private Vector2 movement;
     private Transform target;
     private int randomAttack;
     private int attackLenght;
+    private int health;
     private float canAttack = -1f;
 
+    private void Awake()
+    {
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
 
     void Start()
     {
@@ -96,7 +103,7 @@ public class Enemies : MonoBehaviour
 
     void DealDamage(float dps, int attackNumber)
     {
-        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, radiusAttack[attackNumber], playerLayer);
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackRadius[attackNumber].position, radiusAttack[attackNumber], playerLayer);
         foreach (Collider2D player in hitPlayer)
         {
             Debug.Log("Player hit");
@@ -108,6 +115,7 @@ public class Enemies : MonoBehaviour
     {
         health -= (int)dps;
         enemyAnim.SetTrigger("Hit");
+        healthBar.SetHealth(health);
 
         Debug.Log("HP:"+health);
         if (health <= 0)
@@ -123,6 +131,13 @@ public class Enemies : MonoBehaviour
         this.enabled = false;
 
         Debug.Log("Enemy is dead");
+        StartCoroutine(DestroyEnemy());
+    }
+
+    IEnumerator DestroyEnemy()
+    {
+        yield return new WaitForSeconds(10f);
+        Destroy(this.gameObject);
     }
 
     void OnDrawGizmosSelected()
