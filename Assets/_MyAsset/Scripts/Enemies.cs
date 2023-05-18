@@ -78,8 +78,9 @@ public class Enemies : MonoBehaviour
         }
         else if (movement != Vector2.zero)
         {
-            var xMovement = movement.x * walkSpeed * Time.deltaTime;
-            this.transform.Translate(new Vector3(xMovement, 0f), Space.World);
+            var xMovement = movement.x * walkSpeed;
+            Vector2 move = new Vector2(xMovement, enemyRb.velocity.y);
+            enemyRb.velocity = move;
             enemyAnim.SetBool("Walk", true);
         }
 
