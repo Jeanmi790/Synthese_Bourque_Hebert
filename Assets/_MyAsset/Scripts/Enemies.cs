@@ -22,7 +22,7 @@ public class Enemies : MonoBehaviour
     private Rigidbody2D enemyRb = default;
     private Vector2 movement;
     private Transform target;
-    private static int randomAttack;
+    private int randomAttack;
     private int attackLenght;
     private float canAttack = -1f;
 
@@ -31,7 +31,7 @@ public class Enemies : MonoBehaviour
     {
         enemyAnim = GetComponent<Animator>();
         enemyRb = GetComponent<Rigidbody2D>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = GameObject.FindGameObjectWithTag("Player").transform.Find("PointCentral").transform;
         attackLenght = enemyAnim.GetInteger("NumberAttack");
     }
 
@@ -85,8 +85,8 @@ public class Enemies : MonoBehaviour
             randomAttack = UnityEngine.Random.Range(0, attackLenght);
             enemyAnim.SetInteger("RandomAttack", randomAttack);
             enemyAnim.SetBool("Attack", true);
-            DealDamage(attackPower);
-            canAttack = Time.time + attackSpeed;
+            DealDamage(attackPower, randomAttack);
+            canAttack = Time.time + 1f / attackSpeed;
         }
         else
         {
@@ -94,9 +94,9 @@ public class Enemies : MonoBehaviour
         }
     }
 
-    void DealDamage(float dps)
+    void DealDamage(float dps, int attackNumber)
     {
-        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, radiusAttack[randomAttack], playerLayer);
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, radiusAttack[attackNumber], playerLayer);
         foreach (Collider2D player in hitPlayer)
         {
             Debug.Log("Player hit");
@@ -129,7 +129,7 @@ public class Enemies : MonoBehaviour
     {
         if (attackRadius == null)
             return;
-            
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackRadius[randomAttack].position, radiusAttack[randomAttack]);
     }

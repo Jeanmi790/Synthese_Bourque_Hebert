@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   walkSpeed: 1
-  distance: 1
+  distance: 0.9
   attackPower: 10
   attackSpeed: 2
   radiusAttack:
