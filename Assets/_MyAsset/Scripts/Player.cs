@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] float radiusAttack = 0.5f;
     [SerializeField] Transform AttackRadius;
     [SerializeField] LayerMask enemiesLayers;
-    [SerializeField] float attackSpeed = 2f;
+    [SerializeField] float attackSpeed = 1f;
 
     float nextAttackTime = 0f;
 
@@ -105,17 +105,17 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        if (Time.time > nextAttackTime)
+        if (Time.time >= nextAttackTime)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SwordAttack();
-                nextAttackTime = Time.time + 0.5f / attackSpeed;
+                nextAttackTime = Time.time + 1f / attackSpeed;
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
                 KickAttack();
-                nextAttackTime = Time.time + 0.5f / attackSpeed;
+                nextAttackTime = Time.time + 1f / attackSpeed;
             }
             
         }
@@ -137,12 +137,20 @@ public class Player : MonoBehaviour
     public void TakingDamage(float dps)
     {
         health -= dps;
-        playerAnim.SetBool("Dps", true);
+        playerAnim.SetTrigger("Hit");
         if (health <= 0)
         {
-            Destroy(gameObject);
-            playerAnim.SetTrigger("Dead");
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        playerAnim.SetBool("Dead", true);
+        playerRb.gravityScale = 0f;
+        playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

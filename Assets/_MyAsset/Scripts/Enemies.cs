@@ -13,15 +13,16 @@ public class Enemies : MonoBehaviour
     [Header("Attacks")]
     [SerializeField] float attackPower;
     [SerializeField] float attackSpeed;
-    [SerializeField] float radiusAttack;
-    
+    [SerializeField] float[] radiusAttack;
+    [SerializeField] Transform[] attackRadius;
+    [SerializeField] LayerMask playerLayer;
 
 
     private Animator enemyAnim = default;
     private Rigidbody2D enemyRb = default;
     private Vector2 movement;
     private Transform target;
-    private int randomAttack;
+    private static int randomAttack;
     private int attackLenght;
     private float canAttack = -1f;
 
@@ -56,6 +57,7 @@ public class Enemies : MonoBehaviour
         bool flipSprite = movement.x < 0;
         this.transform.rotation = Quaternion.Euler(new Vector3(0f, flipSprite ? 180f : 0f, 0f));
     }
+
     private void Walk()
     {
         if (target == null)
@@ -83,6 +85,7 @@ public class Enemies : MonoBehaviour
             randomAttack = UnityEngine.Random.Range(0, attackLenght);
             enemyAnim.SetInteger("RandomAttack", randomAttack);
             enemyAnim.SetBool("Attack", true);
+            DealDamage(attackPower);
             canAttack = Time.time + attackSpeed;
         }
         else
@@ -91,17 +94,43 @@ public class Enemies : MonoBehaviour
         }
     }
 
-    public void TakingDamage(float dps)
+    void DealDamage(float dps)
     {
-        health -= (int)dps;
-        Debug.Log("HP:"+health);
-       // enemyAnim.SetBool("Hit", true);
-        if (health <= 0)
+        Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(transform.position, radiusAttack[randomAttack], playerLayer);
+        foreach (Collider2D player in hitPlayer)
         {
-            Destroy(gameObject);
-            Debug.Log("Enemy is dead");
-            //enemyAnim.SetBool("Dead", true);
+            Debug.Log("Player hit");
+            player.GetComponent<Player>().TakingDamage(dps);
         }
     }
 
+    public void TakingDamage(float dps)
+    {
+        health -= (int)dps;
+        enemyAnim.SetTrigger("Hit");
+
+        Debug.Log("HP:"+health);
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        enemyAnim.SetBool("Dead", true);
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
+
+        Debug.Log("Enemy is dead");
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackRadius == null)
+            return;
+            
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackRadius[randomAttack].position, radiusAttack[randomAttack]);
+    }
 }
