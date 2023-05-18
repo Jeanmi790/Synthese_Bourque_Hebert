@@ -54,18 +54,21 @@ public class Player : MonoBehaviour
     private void Moving()
     {
         float x = Input.GetAxis("Horizontal");
+
         isGrounded = Physics2D.OverlapCircle(radiusGroundCheck.position, radiusGround, groundLayers);
+
         float actualWalkSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+
         Vector2 direction = new Vector2(x * actualWalkSpeed, playerRb.velocity.y);
         playerRb.velocity = direction;
 
         playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
-        playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift) );
-        playerAnim.SetBool("Jump",  Input.GetButton("Jump") );
+        playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
+        playerAnim.SetBool("Jump", Input.GetButton("Jump"));
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            
+
             playerRb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
 
@@ -75,7 +78,7 @@ public class Player : MonoBehaviour
 
     void DealDamage(float dps)
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, radiusAttack, enemiesLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackRadius.position, radiusAttack, enemiesLayers);
         foreach (Collider2D Enemies in hitEnemies)
         {
             //Debug.Log("Ennemie hit");

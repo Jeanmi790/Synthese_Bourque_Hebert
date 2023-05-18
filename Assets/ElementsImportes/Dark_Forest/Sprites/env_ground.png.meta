@@ -43,7 +43,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 4
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -11683,11 +11683,11 @@ TextureImporter:
       env_ground_441: -423951609
       env_ground_529: -1533715769
       env_ground_545: 571739196
-      env_ground_125: 1499434696
       env_ground_251: 1377989955
-      env_ground_307: -1746718377
-      env_ground_511: -709345932
       env_ground_543: 1370244393
+      env_ground_511: -709345932
+      env_ground_125: 1499434696
+      env_ground_307: -1746718377
       env_ground_57: -41367106
       env_ground_227: 1734406543
       env_ground_248: 1884557490
@@ -11728,11 +11728,11 @@ TextureImporter:
       env_ground_518: -1591731573
       env_ground_466: -1998661219
       env_ground_123: -1327133030
-      env_ground_217: 1989180751
       env_ground_479: 1279916918
-      env_ground_525: -221229959
+      env_ground_217: 1989180751
       env_ground_490: 1759472426
       env_ground_295: -328959226
+      env_ground_525: -221229959
       env_ground_493: 1166314807
       env_ground_100: -1013458958
       env_ground_145: -98619805
@@ -11772,22 +11772,22 @@ TextureImporter:
       env_ground_224: 2002348752
       env_ground_396: -1243967981
       env_ground_101: -1330979445
+      env_ground_432: -1537389973
       env_ground_363: 897086538
-      env_ground_72: 1490124988
-      env_ground_422: -1965187396
-      env_ground_174: 1232469318
-      env_ground_263: -771816027
       env_ground_477: -85417502
+      env_ground_174: 1232469318
+      env_ground_72: 1490124988
+      env_ground_263: -771816027
       env_ground_386: -816946009
-      env_ground_312: -1030023655
+      env_ground_547: 1092141879
       env_ground_267: -1035199613
       env_ground_10: 227892547
-      env_ground_150: -534764027
+      env_ground_312: -1030023655
+      env_ground_422: -1965187396
       env_ground_468: 374565584
-      env_ground_547: 1092141879
+      env_ground_150: -534764027
       env_ground_384: 1599179950
       env_ground_300: -336535582
-      env_ground_432: -1537389973
       env_ground_68: -1640280022
       env_ground_241: -1818207903
       env_ground_266: 43421762
@@ -11818,13 +11818,13 @@ TextureImporter:
       env_ground_12: 287632544
       env_ground_330: 2079360577
       env_ground_34: 1243226286
-      env_ground_122: 1275254476
       env_ground_200: -1791879691
+      env_ground_464: -111763624
       env_ground_204: 863338098
       env_ground_425: 1039173786
       env_ground_445: -1635527823
+      env_ground_122: 1275254476
       env_ground_214: 453108755
-      env_ground_464: -111763624
       env_ground_59: -1731292039
       env_ground_400: -1494993242
       env_ground_94: 1300205925
@@ -11938,10 +11938,10 @@ TextureImporter:
       env_ground_67: -1280206807
       env_ground_534: -265965769
       env_ground_149: 164001023
-      env_ground_32: 1745327128
-      env_ground_120: -1009360575
       env_ground_218: 282546163
+      env_ground_120: -1009360575
       env_ground_398: -1581930089
+      env_ground_32: 1745327128
       env_ground_260: -168929627
       env_ground_504: -1047882694
       env_ground_541: -678740634
@@ -11950,6 +11950,7 @@ TextureImporter:
       env_ground_397: 1063682062
       env_ground_83: 192780262
       env_ground_28: 64080587
+      env_ground_402: 418862715
       env_ground_60: -387789844
       env_ground_75: 282751165
       env_ground_143: 1736640938
@@ -11965,11 +11966,10 @@ TextureImporter:
       env_ground_435: 1212711105
       env_ground_159: -2141348635
       env_ground_460: 2055427015
-      env_ground_402: 418862715
       env_ground_521: 1354587309
       env_ground_90: -999416012
-      env_ground_369: 1488977374
       env_ground_462: 452575439
+      env_ground_369: 1488977374
       env_ground_205: 1480217525
       env_ground_517: 1744092062
       env_ground_147: -629732088
