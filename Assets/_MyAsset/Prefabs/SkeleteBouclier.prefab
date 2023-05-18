@@ -156,7 +156,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -175,8 +175,9 @@ PolygonCollider2D:
       - {x: -0.17999999, y: -0.48}
       - {x: -0.089999996, y: -0.48}
       - {x: -0.04, y: -0.45}
-      - {x: 0, y: -0.29}
-      - {x: 0, y: 0.03}
+      - {x: -0.01934234, y: -0.29}
+      - {x: -0.012893355, y: -0.12723798}
+      - {x: -0.012893889, y: 0.026776433}
       - {x: -0.11, y: 0.13}
       - {x: -0.14, y: 0.14}
       - {x: -0.22999999, y: 0.14}
@@ -195,11 +196,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6883605924740109895}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

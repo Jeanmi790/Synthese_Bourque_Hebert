@@ -127,6 +127,7 @@ public class Enemies : MonoBehaviour
     private void Die()
     {
         enemyAnim.SetBool("Dead", true);
+        enemyRb.gravityScale = 0f;
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
 
