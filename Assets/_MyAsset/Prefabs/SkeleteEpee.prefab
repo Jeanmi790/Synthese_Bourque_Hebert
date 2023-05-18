@@ -176,10 +176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 80
   healthBar: {fileID: 8348912527763901859}
-  walkSpeed: 1
+  walkSpeed: 0.21
   distance: 0.9
   attackPower: 10
-  attackSpeed: 2
+  attackSpeed: 0.5
   radiusAttack:
   - 1
   attackRadius:
