@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     float nextAttackTime = 0f;
 
     Animator playerAnim = default;
-    float playersize = default;
+    float playerSize;
     Rigidbody2D playerRb = default;
 
 
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerAnim = GetComponent<Animator>();
-        playersize = transform.localScale.x;
+        playerSize = transform.localScale.x;
         playerRb = GetComponent<Rigidbody2D>();
 
     }
@@ -48,50 +48,28 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Moving();
-        Sauter();   
+
     }
 
-    void Moving()
+    private void Moving()
     {
         float x = Input.GetAxis("Horizontal");
-        
-       
-        Vector2 direction = new Vector2(x, 0f);
-
+        isGrounded = Physics2D.OverlapCircle(radiusGroundCheck.position, radiusGround, groundLayers);
         float actualWalkSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+        Vector2 direction = new Vector2(x * actualWalkSpeed, playerRb.velocity.y);
+        playerRb.velocity = direction;
 
-        playerRb.velocity = direction * actualWalkSpeed;
+        playerAnim.SetBool("Moving", true ? Input.GetButton("Horizontal") : !true);
+        playerAnim.SetBool("Run", true ? Input.GetKey(KeyCode.LeftShift) : !true);
+        playerAnim.SetBool("Jump", true ? Input.GetButton("Jump") : !true);
 
-
-        if (Input.GetButton("Horizontal"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            playerAnim.SetBool("Moving", true);
-        }
-        else
-        {
-            playerAnim.SetBool("Moving", !true);
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            playerAnim.SetBool("Run", true);
-
-        }
-        else
-        {
-            playerAnim.SetBool("Run", !true);
+            
+            playerRb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
 
-
-        if (x < 0f)
-        {
-            transform.localScale = new Vector3(-playersize, playersize, playersize);
-        }
-        else if (x > 0f)
-        {
-            transform.localScale = new Vector3(playersize, playersize, playersize);
-
-        }
+        transform.localScale = new Vector3(x < 0f ? -playerSize : playerSize, playerSize, playerSize);
 
     }
 
@@ -109,7 +87,7 @@ public class Player : MonoBehaviour
     {
         if (Time.time > nextAttackTime)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("Fire1"))
             {
                 SwordAttack();
                 nextAttackTime = Time.time + 0.5f / attackSpeed;
@@ -119,7 +97,7 @@ public class Player : MonoBehaviour
                 KickAttack();
                 nextAttackTime = Time.time + 0.5f / attackSpeed;
             }
-            
+
         }
     }
 
@@ -155,20 +133,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Sauter()
+    void Jump()
     {
-        isGrounded = Physics2D.OverlapCircle(radiusGroundCheck.position, radiusGround, groundLayers);
 
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
-        {
-            playerAnim.SetBool("Jump", true);
-
-            playerRb.velocity = new Vector2(playerRb.velocity.x, jump);
-        }
-        else
-        {
-            playerAnim.SetBool("Jump", !true);
-        }
 
     }
 
