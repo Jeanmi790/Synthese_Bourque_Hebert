@@ -3,52 +3,58 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("health")]
-    [SerializeField] float health = 10;
+    [SerializeField] private int maxHealth;
+
+    [SerializeField] private HealthBar healthBar;
+
     [Header("Moving")]
-    [SerializeField] float walkSpeed = 4;
-    [SerializeField] float runSpeed = 8;
-    [SerializeField] float jump = 5;
-    [SerializeField] Transform radiusGroundCheck;
-    [SerializeField] float radiusGround = 0.2f;
-    [SerializeField] LayerMask groundLayers;
-    bool isGrounded;
+    [SerializeField] private float walkSpeed = 4;
+
+    [SerializeField] private float runSpeed = 8;
+    [SerializeField] private float jump = 5;
+    [SerializeField] private Transform radiusGroundCheck;
+    [SerializeField] private float radiusGround = 0.2f;
+    [SerializeField] private LayerMask groundLayers;
+    private bool isGrounded;
+
     [Header("Attacks")]
-    [SerializeField] float attackStrenght = 10;
-    [SerializeField] float kickStrenght = 5;
-    [SerializeField] float radiusAttack = 0.5f;
-    [SerializeField] Transform AttackRadius;
-    [SerializeField] LayerMask enemiesLayers;
-    [SerializeField] float attackSpeed = 2f;
+    [SerializeField] private float attackStrenght = 10;
 
-    float nextAttackTime = 0f;
+    [SerializeField] private float kickStrenght = 5;
+    [SerializeField] private float radiusAttack = 0.5f;
+    [SerializeField] private Transform AttackRadius;
+    [SerializeField] private LayerMask enemiesLayers;
+    [SerializeField] private float attackSpeed = 1f;
 
-    Animator playerAnim = default;
-    float playerSize;
-    Rigidbody2D playerRb = default;
+    private float nextAttackTime = 0f;
+    private int health;
+    private Animator playerAnim = default;
+    private float playerSize;
+    private Rigidbody2D playerRb = default;
 
+    private void Awake()
+    {
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         playerAnim = GetComponent<Animator>();
         playerSize = transform.localScale.x;
         playerRb = GetComponent<Rigidbody2D>();
-
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
         Attack();
-
     }
 
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Moving();
-
     }
 
     private void Moving()
@@ -68,15 +74,13 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-
             playerRb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
 
         transform.localScale = new Vector3(x < 0f ? -playerSize : playerSize, playerSize, playerSize);
-
     }
 
-    void DealDamage(float dps)
+    private void DealDamage(float dps)
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackRadius.position, radiusAttack, enemiesLayers);
         foreach (Collider2D Enemies in hitEnemies)
@@ -86,49 +90,56 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Attack()
+    private void Attack()
     {
-        if (Time.time > nextAttackTime)
+        if (Time.time >= nextAttackTime)
         {
             if (Input.GetButtonDown("Fire1"))
             {
                 SwordAttack();
-                nextAttackTime = Time.time + 0.5f / attackSpeed;
+                nextAttackTime = Time.time + 1f / attackSpeed;
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
                 KickAttack();
-                nextAttackTime = Time.time + 0.5f / attackSpeed;
+                nextAttackTime = Time.time + 1f / attackSpeed;
             }
-
         }
     }
 
-    void SwordAttack()
+    private void SwordAttack()
     {
         playerAnim.SetTrigger("Attack");
         DealDamage(attackStrenght);
     }
 
-    void KickAttack()
+    private void KickAttack()
     {
         playerAnim.SetTrigger("Kick");
         DealDamage(kickStrenght);
     }
 
-
     public void TakingDamage(float dps)
     {
-        health -= dps;
-        playerAnim.SetBool("Dps", true);
+        health -= (int)dps;
+        playerAnim.SetTrigger("Hit");
+        healthBar.SetHealth(health);
         if (health <= 0)
         {
-            Destroy(gameObject);
-            playerAnim.SetTrigger("Dead");
+            Die();
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void Die()
+    {
+        playerAnim.SetBool("Dead", true);
+        playerRb.gravityScale = 0f;
+        playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemies"))
         {
@@ -136,13 +147,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Jump()
+    private void Jump()
     {
-
-
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         if (AttackRadius == null && radiusGroundCheck == null)
             return;
