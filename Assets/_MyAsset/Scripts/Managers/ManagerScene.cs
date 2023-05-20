@@ -8,6 +8,11 @@ public class ManagerScene : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void LoadNextScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
