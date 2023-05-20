@@ -1,79 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    [Header("MainMenuMusic")]
-    [SerializeField] AudioSource mainMenuMusic = default;
-    [Header("MainSceneMusic")]
-    [SerializeField] AudioSource mainSceneMusic = default;
+    [Header("MusicSelected")]
+    [SerializeField] private AudioSource MusicSelected = default;
 
-    void Start()
+    [Header("DisplayVolume")]
+    [SerializeField] private TMP_Text DisplayVolume = default;
+
+    [SerializeField] private Slider volumeSlider = default;
+
+    private void Start()
     {
-        mainMenuMusic = GetComponent<AudioSource>();
-        mainMenuMusic.volume = 0.3f;
-        mainSceneMusic = GetComponent<AudioSource>();
-        mainSceneMusic.volume = 0.3f;
+        MusicSelected = GetComponent<AudioSource>();
+        MusicSelected.volume = 0.3f;
+        DisplayVolume.text = MusicSelected.volume.ToString("0.0");
+        volumeSlider.value = MusicSelected.volume;
     }
 
-    public void playMainMenuMusic(AudioClip audioClip)
+    private void Update()
     {
-        mainMenuMusic.PlayOneShot(audioClip);
+        DisplayVolume.text = (MusicSelected.volume * 100f).ToString("0") + "%";
     }
 
-    public void muteMainMenuMusic()
+    public void playMusicSelected()
     {
-        mainMenuMusic.mute = true;
+        MusicSelected.Play();
     }
 
-    public int getMainMenuMusicVolume()
+    public void pauseMusicSelected()
     {
-        return (int)(mainMenuMusic.volume * 100);
+        MusicSelected.Pause();
     }
 
-    public void setMainMenuMusicVolume(int volume)
+    public void muteMusicSelected()
     {
-        mainMenuMusic.volume = volume / 100f;
+        MusicSelected.mute = true;
     }
 
-    public void stopMainMenuMusic()
+    public void unmuteMusicSelected()
     {
-        mainMenuMusic.Stop();
+        MusicSelected.mute = false;
     }
 
-    //Mettre dans une autre classe?
-
-    public void playMainSceneMusic(AudioClip audioClip)
+    public float getMusicSelectedVolume()
     {
-        mainSceneMusic.PlayOneShot(audioClip);
+        return MusicSelected.volume;
     }
 
-    public void muteMainSceneMusic()
+    public void setMusicSelectedVolume(float volume)
     {
-        mainSceneMusic.mute = true;
+        MusicSelected.volume = volume;
     }
 
-    public int getMainSceneMusicVolume()
+    public void stopMusicSelected()
     {
-        return (int)(mainSceneMusic.volume * 100);
-    }
-
-    public void setMainSceneMusicVolume(int volume)
-    {
-        mainSceneMusic.volume = volume / 100f;
-    }
-    
-    public void stopMainSceneMusic()
-    {
-        mainSceneMusic.Stop();
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        MusicSelected.Stop();
     }
 }
