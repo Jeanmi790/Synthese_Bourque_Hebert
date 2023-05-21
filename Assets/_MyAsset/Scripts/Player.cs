@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -18,24 +20,30 @@ public class Player : MonoBehaviour
     private bool isGrounded;
 
     [Header("Attacks")]
-    [SerializeField] private float attackStrenght = 10;
+    [SerializeField] float attackStrength = 10;
+    [SerializeField] float kickStrenght = 5;
+    [SerializeField] float radiusAttack = 0.5f;
+    [SerializeField] Transform AttackRadius;
+    [SerializeField] LayerMask enemiesLayers;
+    [SerializeField] float attackSpeed = 1f;
 
-    [SerializeField] private float kickStrenght = 5;
-    [SerializeField] private float radiusAttack = 0.5f;
-    [SerializeField] private Transform AttackRadius;
-    [SerializeField] private LayerMask enemiesLayers;
-    [SerializeField] private float attackSpeed = 1f;
-
+    
+    Animator playerAnim = default;
+    
+    Rigidbody2D playerRb = default;
+    SpawnManager spawnManager;
+    private bool isLeft = false;
     private float nextAttackTime = 0f;
-    private int health;
-    private Animator playerAnim = default;
     private float playerSize;
-    private Rigidbody2D playerRb = default;
+    private int health;
+    private float initialAttackSpeed;
+    private float initialAttackStrength;
 
     private void Awake()
     {
         health = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
 
     // Start is called before the first frame update
@@ -44,12 +52,15 @@ public class Player : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         playerSize = transform.localScale.x;
         playerRb = GetComponent<Rigidbody2D>();
+        initialAttackSpeed = attackSpeed;
+        initialAttackStrength = attackStrength;
     }
 
     // Update is called once per frame
     private void Update()
     {
         Attack();
+        Block();
     }
 
     private void FixedUpdate()
@@ -61,23 +72,36 @@ public class Player : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
 
+        if (x > 0)
+        {
+            isLeft = false;
+        }
+        else if (x < 0)
+        {
+            isLeft = true;
+        }
+
         isGrounded = Physics2D.OverlapCircle(radiusGroundCheck.position, radiusGround, groundLayers);
 
-        float actualWalkSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+        float actualWalkSpeed = 0f;
+
+        if (!Block())
+        {
+            actualWalkSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+            playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
+            playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
+            playerAnim.SetBool("Jump", Input.GetButton("Jump"));
+        }
 
         Vector2 direction = new Vector2(x * actualWalkSpeed, playerRb.velocity.y);
         playerRb.velocity = direction;
-
-        playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
-        playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
-        playerAnim.SetBool("Jump", Input.GetButton("Jump"));
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             playerRb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
 
-        transform.localScale = new Vector3(x < 0f ? -playerSize : playerSize, playerSize, playerSize);
+           transform.localScale = new Vector3(isLeft ? -playerSize : playerSize, playerSize, playerSize); 
     }
 
     private void DealDamage(float dps)
@@ -92,9 +116,13 @@ public class Player : MonoBehaviour
 
     private void Attack()
     {
+        if (Block())
+        {
+            return;
+        }
         if (Time.time >= nextAttackTime)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButton("Fire1"))
             {
                 SwordAttack();
                 nextAttackTime = Time.time + 1f / attackSpeed;
@@ -110,7 +138,7 @@ public class Player : MonoBehaviour
     private void SwordAttack()
     {
         playerAnim.SetTrigger("Attack");
-        DealDamage(attackStrenght);
+        DealDamage(attackStrength);
     }
 
     private void KickAttack()
@@ -119,11 +147,32 @@ public class Player : MonoBehaviour
         DealDamage(kickStrenght);
     }
 
+    bool Block() 
+    {
+        if (Input.GetButton("Fire2"))
+        {
+            playerAnim.SetBool("Block", true);
+            return true;
+        }
+        else
+        {
+            playerAnim.SetBool("Block", false);
+            return false;
+        }
+    }
+
+
     public void TakingDamage(float dps)
     {
-        health -= (int)dps;
-        playerAnim.SetTrigger("Hit");
-        healthBar.SetHealth(health);
+        if (Block())
+        {
+           dps = dps / 2;
+        }
+
+            health -= (int)dps;
+            playerAnim.SetTrigger("Hit");
+            healthBar.SetHealth(health);
+        
         if (health <= 0)
         {
             Die();
@@ -137,6 +186,7 @@ public class Player : MonoBehaviour
         playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
+        spawnManager.mortJoueur();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -159,5 +209,42 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(AttackRadius.position, radiusAttack);
         Gizmos.DrawWireSphere(radiusGroundCheck.position, radiusGround);
+    }
+
+    public void HealthPotion(int pourcent)
+    {
+        int recuperation = (maxHealth * pourcent) / 100;
+
+        if (health + recuperation > maxHealth)
+        {
+            recuperation = maxHealth - health;
+        }
+
+        health += recuperation;  
+        healthBar.SetHealth(health);
+    }
+
+    public void AttackSpeedPotion (float speed)
+    {
+        attackSpeed = initialAttackSpeed * 2;
+        StartCoroutine(AttackSpeedPotionTimer());
+    }
+
+    IEnumerator AttackSpeedPotionTimer()
+    {
+        yield return new WaitForSeconds(10);
+        attackSpeed = initialAttackSpeed;
+    }
+
+    public void StrengthPotion(float damage)
+    {
+        attackStrength = initialAttackStrength * 2;
+        StartCoroutine(StrengthPotionTimer());
+    }
+
+    IEnumerator StrengthPotionTimer()
+    {
+        yield return new WaitForSeconds(10);
+        attackStrength = initialAttackStrength;
     }
 }

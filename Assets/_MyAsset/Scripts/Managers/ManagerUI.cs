@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class ManagerUI : MonoBehaviour
@@ -14,7 +15,15 @@ public class ManagerUI : MonoBehaviour
     [Header("InstructionPanel")]
     [SerializeField] private GameObject InstructionPanel = default;
 
+    [Header("TxtActualTime")]
+    [SerializeField] private TMP_Text TxtActualTime = default;
+
+    [Header("TxtActualScore")]
+    [SerializeField] private TMP_Text TxtActualScore = default;
+
     private bool isPaused;
+
+    private IGameInfo gameInfo;
 
     // Start is called before the first frame update
     private void Start()
@@ -24,12 +33,14 @@ public class ManagerUI : MonoBehaviour
         GameOverPanel.SetActive(false);
         InstructionPanel.SetActive(false);
         isPaused = false;
+        gameInfo = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     private void Update()
     {
         PauseGame();
+        UpdateGameInfo();
     }
 
     public void OpenPanel(GameObject panel)
@@ -49,12 +60,20 @@ public class ManagerUI : MonoBehaviour
             Time.timeScale = 0;
             OpenPanel(PausePanel);
             isPaused = true;
+            
         }
         else if (Input.GetKey(KeyCode.Escape) && isPaused)
         {
             Time.timeScale = 1;
             ClosePanel(PausePanel);
             isPaused = !true;
+           
         }
+    }
+
+    public void UpdateGameInfo()
+    {
+        TxtActualTime.text = gameInfo.InGameTime.ToString("00") + " sec";
+        TxtActualScore.text = gameInfo.Score.ToString();
     }
 }
