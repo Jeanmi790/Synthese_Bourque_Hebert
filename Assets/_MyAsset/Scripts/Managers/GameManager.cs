@@ -31,18 +31,20 @@ public class GameManager : MonoBehaviour, IGameInfo
         InGameTime = 0f;
         ajustTime = 0f;
         Score = 0f;
+        loadPlayerInfo();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        UpdateTime();
+        if (!IsPlayerDead) { UpdateTime(); }
     }
 
     public void loadPlayerInfo()
     {
         player = FindObjectOfType<Player>();
         playerPosition = player.transform.position;
+        IsPlayerDead = false;
     }
 
     public float GetTime()
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour, IGameInfo
 
     public void UpdateTime()
     {
-        InGameTime = Time.time;
+        InGameTime = Time.timeSinceLevelLoad;
     }
 
     public void AddScore(float score)
@@ -63,5 +65,22 @@ public class GameManager : MonoBehaviour, IGameInfo
     public float GetScore()
     {
         return Score;
+    }
+
+    public void GameOver()
+    {
+        IsPlayerDead = true;
+
+        PlayerPrefs.SetFloat("Score", Score);
+        PlayerPrefs.SetFloat("Time", InGameTime);
+        PlayerPrefs.Save();
+    }
+
+    public void RestartGame()
+    {
+        InGameTime = 0f;
+        ajustTime = 0f;
+        Score = 0f;
+        IsPlayerDead = false;
     }
 }

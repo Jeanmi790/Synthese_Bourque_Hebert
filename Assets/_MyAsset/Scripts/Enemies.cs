@@ -134,7 +134,7 @@ public class Enemies : MonoBehaviour
         enemyRb.velocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
-        gameInfo.AddScore(maxHealth*0.75f);
+        gameInfo.AddScore(maxHealth*0.65f);
         Debug.Log("Enemy is dead");
         StartCoroutine(DestroyEnemy());
     }
