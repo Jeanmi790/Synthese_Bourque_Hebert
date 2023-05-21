@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         MusicSelected = GetComponent<AudioSource>();
-        MusicSelected.volume = 0.3f;
+        MusicSelected.volume = 0.15f;
         DisplayVolume.text = MusicSelected.volume.ToString("0.0");
         volumeSlider.value = MusicSelected.volume;
     }
