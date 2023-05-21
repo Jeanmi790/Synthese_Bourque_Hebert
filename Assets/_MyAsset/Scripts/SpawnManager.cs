@@ -36,10 +36,10 @@ public class SpawnManager : MonoBehaviour
             Vector3[] positionSpawn = new Vector3[] { positionSpawnAvant, positionSpawnArriere };
 
             int randomEnemy = Random.Range(0, enemyPrefab.Length);
-            int randomPosition = Random.Range(0, positionSpawn.Length);
+            int randomPosition = Random.Range(0, 100);
             float randomTime = Random.Range(2f, 10f);
 
-            GameObject newEnemy = Instantiate(enemyPrefab[randomEnemy], positionSpawnArriere.x > -5f ? positionSpawn[randomPosition] : positionSpawnAvant, Quaternion.identity);
+            GameObject newEnemy = Instantiate(enemyPrefab[randomEnemy], positionSpawnArriere.x > -5f ? randomPosition < 70 ? positionSpawnAvant : positionSpawnArriere : positionSpawnAvant, Quaternion.identity);
             newEnemy.transform.parent = container.transform;
             yield return new WaitForSeconds(randomTime);
         }
@@ -53,7 +53,7 @@ public class SpawnManager : MonoBehaviour
         if (randomChance < 30)
         {
             Instantiate(potionPrefab[randomPotion], spawnPosition, Quaternion.identity);
-        }    
+        }
     }
 
     public void mortJoueur()
