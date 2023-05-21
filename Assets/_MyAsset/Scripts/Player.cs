@@ -5,17 +5,17 @@ public class Player : MonoBehaviour
 {
     [Header("health")]
     [SerializeField] private int maxHealth;
-
     [SerializeField] private HealthBar healthBar;
+    [SerializeField] private GameObject blood;
 
     [Header("Moving")]
     [SerializeField] private float walkSpeed = 4;
-
     [SerializeField] private float runSpeed = 8;
     [SerializeField] private float jump = 5;
     [SerializeField] private Transform radiusGroundCheck;
     [SerializeField] private float radiusGround = 0.2f;
     [SerializeField] private LayerMask groundLayers;
+    [SerializeField] private GameObject dustCloud;
     private bool isGrounded;
 
     [Header("Attacks")]
@@ -88,7 +88,9 @@ public class Player : MonoBehaviour
         {
             actualWalkSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
             playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
+            
             playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
+  
             playerAnim.SetBool("Jump", Input.GetButton("Jump"));
         }
 
@@ -99,6 +101,13 @@ public class Player : MonoBehaviour
         {
             playerRb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
+
+        if (Input.GetButton("Horizontal") && Input.GetKey(KeyCode.LeftShift))
+        {
+            Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
+        }
+        
+
 
         transform.localScale = new Vector3(isLeft ? -playerSize : playerSize, playerSize, playerSize);
     }
@@ -171,6 +180,7 @@ public class Player : MonoBehaviour
         playerAnim.SetTrigger("Hit");
         healthBar.SetHealth(health);
 
+        Instantiate(blood, transform.position, Quaternion.identity);
         if (health <= 0)
         {
             Die();
@@ -179,6 +189,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        playerAnim.SetBool("Block", false);
         playerAnim.SetBool("Dead", true);
         playerRb.gravityScale = 0f;
         playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
