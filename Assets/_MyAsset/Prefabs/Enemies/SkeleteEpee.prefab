@@ -182,7 +182,9 @@ MonoBehaviour:
   attackSpeed: 0.5
   radiusAttack:
   - 1
+  - 1
   attackRadius:
+  - {fileID: 592317475}
   - {fileID: 592317475}
   playerLayer:
     serializedVersion: 2
