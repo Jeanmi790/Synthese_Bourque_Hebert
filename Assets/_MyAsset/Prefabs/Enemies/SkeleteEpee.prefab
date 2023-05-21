@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592317474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.018, y: -0.153, z: 0}
+  m_LocalPosition: {x: 0.223, y: -0.153, z: 0}
   m_LocalScale: {x: 0.40951717, y: 0.40951717, z: 0.40951717}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -176,8 +176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 80
   healthBar: {fileID: 8348912527763901859}
-  walkSpeed: 0.21
-  distance: 0.9
+  walkSpeed: 0.5
+  distance: 1.2
   attackPower: 10
   attackSpeed: 0.5
   radiusAttack:
@@ -203,7 +203,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.36, y: 0.5}
     oldSize: {x: 1.28, y: 0.96}
     newSize: {x: 1.28, y: 0.96}
     adaptiveTilingThreshold: 0.5
@@ -212,22 +212,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.19, y: -0.47}
-      - {x: -0.21, y: -0.41}
-      - {x: -0.17999999, y: -0.32999998}
-      - {x: -0.17999999, y: -0.31}
-      - {x: -0.19, y: -0.45}
-      - {x: -0.19, y: -0.47}
-      - {x: -0.17999999, y: -0.48}
-      - {x: -0.089999996, y: -0.48}
-      - {x: -0.089999996, y: 0.03}
-      - {x: -0.13, y: 0.13}
-      - {x: -0.21, y: 0.13}
-      - {x: -0.24247053, y: 0.020467104}
-      - {x: -0.30953535, y: -0.06818643}
-      - {x: -0.33347356, y: -0.22031334}
-      - {x: -0.28026247, y: -0.48}
-      - {x: -0.19, y: -0.48}
+    - - {x: -0.010800018, y: -0.47}
+      - {x: -0.030800018, y: -0.41}
+      - {x: -0.0008000183, y: -0.32999998}
+      - {x: -0.0008000183, y: -0.31}
+      - {x: -0.010800018, y: -0.45}
+      - {x: -0.010800018, y: -0.47}
+      - {x: -0.0008000183, y: -0.48}
+      - {x: 0.08919998, y: -0.48}
+      - {x: 0.08919998, y: 0.03}
+      - {x: 0.04919998, y: 0.13}
+      - {x: -0.030800018, y: 0.13}
+      - {x: -0.15080002, y: -0.06}
+      - {x: -0.15127806, y: -0.40242535}
+      - {x: -0.16109252, y: -0.41330266}
+      - {x: -0.12329468, y: -0.48378012}
+      - {x: -0.010800018, y: -0.48}
 --- !u!1001 &4444094753335562149
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -321,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5652531091551087525, guid: 57ecc19a67844ac499d2aa0d7104c492, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.162
+      value: 0.016
       objectReference: {fileID: 0}
     - target: {fileID: 5652531091551087525, guid: 57ecc19a67844ac499d2aa0d7104c492, type: 3}
       propertyPath: m_AnchoredPosition.y
