@@ -7,5 +7,7 @@ public interface IGameInfo
     bool IsPlayerDead { get; set; }
 
     void AddScore(float score);
+    void GameOver();
+    void RestartGame();
 
 }

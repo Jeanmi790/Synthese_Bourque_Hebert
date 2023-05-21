@@ -41,6 +41,7 @@ public class ManagerUI : MonoBehaviour
     {
         PauseGame();
         UpdateGameInfo();
+        PanelGameOver();
     }
 
     public void OpenPanel(GameObject panel)
@@ -53,27 +54,47 @@ public class ManagerUI : MonoBehaviour
         panel.SetActive(false);
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
-        if (Input.GetKey(KeyCode.Escape) && !isPaused)
+        if (Input.GetKey(KeyCode.Escape) && !isPaused && !gameInfo.IsPlayerDead)
         {
             Time.timeScale = 0;
             OpenPanel(PausePanel);
             isPaused = true;
-            
         }
-        else if (Input.GetKey(KeyCode.Escape) && isPaused)
+        else if (Input.GetKey(KeyCode.Escape) && isPaused && !gameInfo.IsPlayerDead)
         {
             Time.timeScale = 1;
             ClosePanel(PausePanel);
             isPaused = !true;
-           
         }
     }
 
-    public void UpdateGameInfo()
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        ClosePanel(PausePanel);
+        isPaused = !true;
+    }
+
+    private void UpdateGameInfo()
     {
         TxtActualTime.text = gameInfo.InGameTime.ToString("00") + " sec";
         TxtActualScore.text = gameInfo.Score.ToString();
+    }
+
+    public void PanelGameOver()
+    {
+        if (!gameInfo.IsPlayerDead) { return; }
+        OpenPanel(GameOverPanel);
+    }
+
+    public void ResetGame()
+    {
+        gameInfo.RestartGame();
+        Time.timeScale = 1;
+        ClosePanel(GameOverPanel);
+        ClosePanel(PausePanel);
+        isPaused = false;
     }
 }
