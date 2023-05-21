@@ -25,7 +25,6 @@ public class ManagerUI : MonoBehaviour
 
     private IGameInfo gameInfo;
 
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -70,6 +69,7 @@ public class ManagerUI : MonoBehaviour
             isPaused = !true;
         }
     }
+
     public void Resume()
     {
         Time.timeScale = 1;
@@ -97,5 +97,4 @@ public class ManagerUI : MonoBehaviour
         ClosePanel(PausePanel);
         isPaused = false;
     }
-
 }
