@@ -38,11 +38,14 @@ public class Player : MonoBehaviour
     private float initialAttackSpeed;
     private float initialAttackStrength;
 
+    private IGameInfo gameInfo;
+
     private void Awake()
     {
         health = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        gameInfo = FindObjectOfType<GameManager>();
     }
 
     // Start is called before the first frame update
@@ -180,6 +183,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         playerAnim.SetBool("Dead", true);
+        gameInfo.GameOver();
         playerRb.gravityScale = 0f;
         playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
         GetComponent<Collider2D>().enabled = false;
