@@ -1413,6 +1413,10 @@ PrefabInstance:
       propertyPath: DisplayVolume
       value: 
       objectReference: {fileID: 220611352}
+    - target: {fileID: 3008583150702409067, guid: 592bc8621bcdc8e4cb9f6ab3688c28e5, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3008583150702409069, guid: 592bc8621bcdc8e4cb9f6ab3688c28e5, type: 3}
       propertyPath: m_RootOrder
       value: 1
