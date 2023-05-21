@@ -28,7 +28,7 @@ public class ManagerUIEndScene : MonoBehaviour
         inputPanel.SetActive(false);
         if (PlayerPrefs.HasKey("BestScore") && PlayerPrefs.HasKey("BestPlayer") && PlayerPrefs.HasKey("BestTime"))
         {
-            txtBestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
+            txtBestScore.text = PlayerPrefs.GetFloat("BestScore").ToString();
             txtBestTime.text = PlayerPrefs.GetFloat("BestTime").ToString("00") + " sec";
             txtBestName.text = PlayerPrefs.GetString("BestPlayer");
         }
@@ -41,7 +41,7 @@ public class ManagerUIEndScene : MonoBehaviour
 
         if (PlayerPrefs.HasKey("Score") && PlayerPrefs.HasKey("Time"))
         {
-            txtScore.text = PlayerPrefs.GetInt("Score").ToString();
+            txtScore.text = PlayerPrefs.GetFloat("Score").ToString();
             txtTime.text = PlayerPrefs.GetFloat("Time").ToString("00") + " sec";
         }
         else
@@ -49,26 +49,26 @@ public class ManagerUIEndScene : MonoBehaviour
             txtScore.text = defaultValue.ToString();
             txtTime.text = defaultValue.ToString();
         }
+        if (PlayerPrefs.GetFloat("Score") > PlayerPrefs.GetFloat("BestScore"))
+        {
+            inputPanel.SetActive(true);
+        }
     }
 
     public void UpdateBestScore()
     {
         if (PlayerPrefs.HasKey("Score") && PlayerPrefs.HasKey("Time"))
         {
-            if (PlayerPrefs.GetFloat("Score") > PlayerPrefs.GetFloat("BestScore") && PlayerPrefs.GetFloat("Time") > PlayerPrefs.GetFloat("BestTime"))
-            {
-                inputPanel.SetActive(true);
-                PlayerPrefs.SetInt("BestScore", PlayerPrefs.GetInt("Score"));
-                PlayerPrefs.SetFloat("BestTime", PlayerPrefs.GetFloat("Time"));
-                PlayerPrefs.SetString("BestPlayer", inputName.text);
-                PlayerPrefs.Save();
-            }
+            PlayerPrefs.SetFloat("BestScore", PlayerPrefs.GetFloat("Score"));
+            PlayerPrefs.SetFloat("BestTime", PlayerPrefs.GetFloat("Time"));
+            PlayerPrefs.SetString("BestPlayer", inputName.text);
+            PlayerPrefs.Save();
         }
     }
 
     public void Refresh()
     {
-        txtBestScore.text = PlayerPrefs.GetInt("BestScore").ToString();
+        txtBestScore.text = PlayerPrefs.GetFloat("BestScore").ToString();
         txtBestTime.text = PlayerPrefs.GetFloat("BestTime").ToString("00") + " sec";
         txtBestName.text = PlayerPrefs.GetString("BestPlayer");
         inputPanel.SetActive(false);

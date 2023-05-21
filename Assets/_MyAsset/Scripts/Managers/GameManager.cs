@@ -70,8 +70,8 @@ public class GameManager : MonoBehaviour, IGameInfo
     public void GameOver()
     {
         IsPlayerDead = true;
-
-        PlayerPrefs.SetFloat("Score", Score);
+        Debug.Log(GetScore());
+        PlayerPrefs.SetFloat("Score", GetScore());
         PlayerPrefs.SetFloat("Time", InGameTime);
         PlayerPrefs.Save();
     }

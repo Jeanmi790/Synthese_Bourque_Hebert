@@ -55,7 +55,7 @@ public class ManagerUI : MonoBehaviour
         panel.SetActive(false);
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         if (Input.GetKey(KeyCode.Escape) && !isPaused && !gameInfo.IsPlayerDead)
         {
@@ -63,15 +63,21 @@ public class ManagerUI : MonoBehaviour
             OpenPanel(PausePanel);
             isPaused = true;
         }
-        else if (Input.GetKey(KeyCode.Escape) && isPaused)
+        else if (Input.GetKey(KeyCode.Escape) && isPaused && !gameInfo.IsPlayerDead)
         {
             Time.timeScale = 1;
             ClosePanel(PausePanel);
             isPaused = !true;
         }
     }
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        ClosePanel(PausePanel);
+        isPaused = !true;
+    }
 
-    public void UpdateGameInfo()
+    private void UpdateGameInfo()
     {
         TxtActualTime.text = gameInfo.InGameTime.ToString("00") + " sec";
         TxtActualScore.text = gameInfo.Score.ToString();
