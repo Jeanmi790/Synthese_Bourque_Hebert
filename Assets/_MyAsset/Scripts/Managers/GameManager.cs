@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour, IGameInfo
         InGameTime = Time.time;
     }
 
-    public void AugmentScore(float score)
+    public void AddScore(float score)
     {
         Score += score;
     }

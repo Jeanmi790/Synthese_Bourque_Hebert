@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,18 +19,18 @@ public class Player : MonoBehaviour
     private bool isGrounded;
 
     [Header("Attacks")]
-    [SerializeField] float attackStrength = 10;
-    [SerializeField] float kickStrenght = 5;
-    [SerializeField] float radiusAttack = 0.5f;
-    [SerializeField] Transform AttackRadius;
-    [SerializeField] LayerMask enemiesLayers;
-    [SerializeField] float attackSpeed = 1f;
+    [SerializeField] private float attackStrength = 10;
 
-    
-    Animator playerAnim = default;
-    
-    Rigidbody2D playerRb = default;
-    SpawnManager spawnManager;
+    [SerializeField] private float kickStrenght = 5;
+    [SerializeField] private float radiusAttack = 0.5f;
+    [SerializeField] private Transform AttackRadius;
+    [SerializeField] private LayerMask enemiesLayers;
+    [SerializeField] private float attackSpeed = 1f;
+
+    private Animator playerAnim = default;
+
+    private Rigidbody2D playerRb = default;
+    private SpawnManager spawnManager;
     private bool isLeft = false;
     private float nextAttackTime = 0f;
     private float playerSize;
@@ -101,7 +100,7 @@ public class Player : MonoBehaviour
             playerRb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
 
-           transform.localScale = new Vector3(isLeft ? -playerSize : playerSize, playerSize, playerSize); 
+        transform.localScale = new Vector3(isLeft ? -playerSize : playerSize, playerSize, playerSize);
     }
 
     private void DealDamage(float dps)
@@ -147,7 +146,7 @@ public class Player : MonoBehaviour
         DealDamage(kickStrenght);
     }
 
-    bool Block() 
+    private bool Block()
     {
         if (Input.GetButton("Fire2"))
         {
@@ -161,18 +160,17 @@ public class Player : MonoBehaviour
         }
     }
 
-
     public void TakingDamage(float dps)
     {
         if (Block())
         {
-           dps = dps / 2;
+            dps = dps / 2;
         }
 
-            health -= (int)dps;
-            playerAnim.SetTrigger("Hit");
-            healthBar.SetHealth(health);
-        
+        health -= (int)dps;
+        playerAnim.SetTrigger("Hit");
+        healthBar.SetHealth(health);
+
         if (health <= 0)
         {
             Die();
@@ -220,17 +218,17 @@ public class Player : MonoBehaviour
             recuperation = maxHealth - health;
         }
 
-        health += recuperation;  
+        health += recuperation;
         healthBar.SetHealth(health);
     }
 
-    public void AttackSpeedPotion (float speed)
+    public void AttackSpeedPotion(float speed)
     {
         attackSpeed = initialAttackSpeed * 2;
         StartCoroutine(AttackSpeedPotionTimer());
     }
 
-    IEnumerator AttackSpeedPotionTimer()
+    private IEnumerator AttackSpeedPotionTimer()
     {
         yield return new WaitForSeconds(10);
         attackSpeed = initialAttackSpeed;
@@ -242,7 +240,7 @@ public class Player : MonoBehaviour
         StartCoroutine(StrengthPotionTimer());
     }
 
-    IEnumerator StrengthPotionTimer()
+    private IEnumerator StrengthPotionTimer()
     {
         yield return new WaitForSeconds(10);
         attackStrength = initialAttackStrength;

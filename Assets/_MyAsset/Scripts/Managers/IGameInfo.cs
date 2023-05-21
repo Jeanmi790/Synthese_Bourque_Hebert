@@ -6,4 +6,6 @@ public interface IGameInfo
     float Score { get; set; }
     bool IsPlayerDead { get; set; }
 
+    void AddScore(float score);
+
 }

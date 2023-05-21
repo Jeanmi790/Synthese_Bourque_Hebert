@@ -19,6 +19,7 @@ public class Enemies : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
 
     private SpawnManager spawnManager;
+    private IGameInfo gameInfo;
     private Animator enemyAnim = default;
     private Rigidbody2D enemyRb = default;
     private Vector2 movement;
@@ -41,6 +42,7 @@ public class Enemies : MonoBehaviour
         enemyRb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").transform.Find("PointCentral").transform;
         attackLenght = enemyAnim.GetInteger("NumberAttack");
+        gameInfo = GameObject.FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -132,7 +134,7 @@ public class Enemies : MonoBehaviour
         enemyRb.velocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
-
+        gameInfo.AddScore(maxHealth*0.75f);
         Debug.Log("Enemy is dead");
         StartCoroutine(DestroyEnemy());
     }
