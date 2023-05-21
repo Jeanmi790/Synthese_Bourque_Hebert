@@ -18,7 +18,7 @@ public class Enemies : MonoBehaviour
     [SerializeField] private Transform[] attackRadius;
     [SerializeField] private LayerMask playerLayer;
 
-    
+    private SpawnManager spawnManager;
     private Animator enemyAnim = default;
     private Rigidbody2D enemyRb = default;
     private Vector2 movement;
@@ -36,6 +36,7 @@ public class Enemies : MonoBehaviour
 
     void Start()
     {
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         enemyAnim = GetComponent<Animator>();
         enemyRb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").transform.Find("PointCentral").transform;
@@ -107,8 +108,7 @@ public class Enemies : MonoBehaviour
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackRadius[attackNumber].position, radiusAttack[attackNumber], playerLayer);
         foreach (Collider2D player in hitPlayer)
         {
-            Debug.Log("Player hit");
-            player.GetComponent<Player>().TakingDamage(dps);
+            player.GetComponent<Player>().TakingDamage(dps);    
         }
     }
 
@@ -129,6 +129,7 @@ public class Enemies : MonoBehaviour
     {
         enemyAnim.SetBool("Dead", true);
         enemyRb.gravityScale = 0f;
+        enemyRb.velocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
 
@@ -138,8 +139,10 @@ public class Enemies : MonoBehaviour
 
     IEnumerator DestroyEnemy()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f);
         Destroy(this.gameObject);
+        spawnManager.SpawnPotion(this.transform.position);
+        
     }
 
     void OnDrawGizmosSelected()
