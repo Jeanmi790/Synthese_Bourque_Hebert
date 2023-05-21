@@ -409,7 +409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a2579e93758534cb47e1040feada91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  container: {fileID: 0}
+  maxHealth: 300
   healthBar: {fileID: 849554354332341884}
   blood: {fileID: 7685007716121171871, guid: a3f9ca837390c164d9e6180d2d8ac28d, type: 3}
   walkSpeed: 4
@@ -421,7 +422,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   dustCloud: {fileID: 1141229993783712011, guid: 78469d3363112334c9e0b57aef193fa5, type: 3}
-  attackStrength: 1000
+  attackStrength: 10
   kickStrenght: 5
   radiusAttack: 0.7
   AttackRadius: {fileID: 5024867350280079203}

@@ -141,7 +141,7 @@ public class Enemies : MonoBehaviour
 
     IEnumerator DestroyEnemy()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         Destroy(this.gameObject);
         spawnManager.SpawnPotion(this.transform.position);
         

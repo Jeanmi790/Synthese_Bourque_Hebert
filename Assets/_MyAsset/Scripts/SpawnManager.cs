@@ -9,6 +9,10 @@ public class SpawnManager : MonoBehaviour
 
     private bool stopSpawn = false;
     private Transform target;
+    private GameManager gameInfo;
+    private int scoreToIncreaseDifficulty = 50;
+    private float timeReduction = 0.4f;
+    private float maxTimeReduction = 9f;
 
     private void Awake()
     {
@@ -19,6 +23,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         StartSpawning();
+        gameInfo = FindObjectOfType<GameManager>();
     }
 
     private void StartSpawning()
@@ -36,21 +41,27 @@ public class SpawnManager : MonoBehaviour
             Vector3[] positionSpawn = new Vector3[] { positionSpawnAvant, positionSpawnArriere };
 
             int randomEnemy = Random.Range(0, enemyPrefab.Length);
-            int randomPosition = Random.Range(0, 100);
             float randomTime = Random.Range(2f, 10f);
 
-            GameObject newEnemy = Instantiate(enemyPrefab[randomEnemy], positionSpawnArriere.x > -5f ? randomPosition < 70 ? positionSpawnAvant : positionSpawnArriere : positionSpawnAvant, Quaternion.identity);
+            // if score is above threshold, reduce randomTime
+            if (gameInfo.GetScore() >= scoreToIncreaseDifficulty)
+            {
+                randomTime -= timeReduction;
+                scoreToIncreaseDifficulty += 50;
+                timeReduction = Mathf.Min(timeReduction * 2f, maxTimeReduction);
+            }
+
+            GameObject newEnemy = Instantiate(enemyPrefab[randomEnemy], target.position.x > 545f ? positionSpawnArriere : positionSpawnAvant, Quaternion.identity);
             newEnemy.transform.parent = container.transform;
             yield return new WaitForSeconds(randomTime);
         }
-
     }
 
     public void SpawnPotion(Vector3 spawnPosition)
     {
         int randomPotion = Random.Range(0, potionPrefab.Length);
         int randomChance = Random.Range(0, 100);
-        if (randomChance < 30)
+        if (randomChance < 20)
         {
             Instantiate(potionPrefab[randomPotion], spawnPosition, Quaternion.identity);
         }

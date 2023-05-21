@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private GameObject container = default;
     [Header("health")]
     [SerializeField] private int maxHealth;
     [SerializeField] private HealthBar healthBar;
@@ -28,7 +29,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float attackSpeed = 1f;
 
     private Animator playerAnim = default;
-
     private Rigidbody2D playerRb = default;
     private SpawnManager spawnManager;
     private bool isLeft = false;
@@ -104,11 +104,10 @@ public class Player : MonoBehaviour
 
         if (Input.GetButton("Horizontal") && Input.GetKey(KeyCode.LeftShift))
         {
-            Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
+            GameObject newDustCloud = Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
+            newDustCloud.transform.parent = container.transform;
         }
         
-
-
         transform.localScale = new Vector3(isLeft ? -playerSize : playerSize, playerSize, playerSize);
     }
 
@@ -196,18 +195,6 @@ public class Player : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
         spawnManager.mortJoueur();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemies"))
-        {
-            //PrendreDegats(1);
-        }
-    }
-
-    private void Jump()
-    {
     }
 
     private void OnDrawGizmosSelected()
