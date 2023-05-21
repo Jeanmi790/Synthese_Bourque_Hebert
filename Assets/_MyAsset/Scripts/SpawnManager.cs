@@ -50,7 +50,7 @@ public class SpawnManager : MonoBehaviour
     {
         int randomPotion = Random.Range(0, potionPrefab.Length);
         int randomChance = Random.Range(0, 100);
-        if (randomChance < 50)
+        if (randomChance < 30)
         {
             Instantiate(potionPrefab[randomPotion], spawnPosition, Quaternion.identity);
         }    
