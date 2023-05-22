@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
 
             playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
-            
+
             playerAnim.SetBool("Jump", Input.GetButton("Jump"));
         }
 
@@ -104,10 +104,8 @@ public class Player : MonoBehaviour
 
         if (Input.GetButton("Horizontal") && Input.GetKey(KeyCode.LeftShift))
         {
-            
             GameObject newDustCloud = Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
             newDustCloud.transform.parent = container.transform;
-            
         }
     }
 
@@ -174,6 +172,7 @@ public class Player : MonoBehaviour
         if (Input.GetButton("Fire2"))
         {
             playerAnim.SetBool("Block", true);
+
             return true;
         }
         else
@@ -188,13 +187,12 @@ public class Player : MonoBehaviour
         if (Block())
         {
             dps = dps / 2;
-            PlaySound(sounds[2], false);
         }
 
         health -= (int)dps;
         playerAnim.SetTrigger("Hit");
         healthBar.SetHealth(health);
-        PlaySound(sounds[1], false);
+        PlaySound(sounds[Block() ? 2 : 1], false);
         Instantiate(blood, transform.position, Quaternion.identity);
         if (health <= 0)
         {
