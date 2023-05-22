@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     private GameManager gameInfo;
     private int scoreToIncreaseDifficulty = 50;
     private float timeReduction = 0.4f;
-    private float maxTimeReduction = 9f;
+    private float maxTimeReduction = 10f;
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class SpawnManager : MonoBehaviour
             Vector3[] positionSpawn = new Vector3[] { positionSpawnAvant, positionSpawnArriere };
 
             int randomEnemy = Random.Range(0, enemyPrefab.Length);
-            float randomTime = Random.Range(2f, 10f);
+            float randomTime = Random.Range(1f, 10f);
 
             // if score is above threshold, reduce randomTime
             if (gameInfo.GetScore() >= scoreToIncreaseDifficulty)
