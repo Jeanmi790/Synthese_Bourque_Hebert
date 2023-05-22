@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("ButtonSound")]
     [SerializeField] private GameObject[] buttonMute = default;
+
     [SerializeField] private GameObject[] buttonUnmute = default;
 
     private void Start()
@@ -24,24 +25,21 @@ public class SoundManager : MonoBehaviour
         DisplayVolume.text = MusicSelected.volume.ToString("0.0");
         volumeSlider.value = MusicSelected.volume;
 
-
         SetButtonStatus(buttonMute, true);
         SetButtonStatus(buttonUnmute, false);
     }
 
     private void Update()
     {
-        if(volumeSlider != null)
+        if (volumeSlider != null)
         {
             DisplayVolume.text = (MusicSelected.volume * 100f).ToString("0") + "%";
         }
-       
     }
 
     public void playMusicSelected()
     {
         MusicSelected.Play();
-
     }
 
     public void muteMusicSelected()
@@ -61,16 +59,6 @@ public class SoundManager : MonoBehaviour
     public float getMusicSelectedVolume()
     {
         return MusicSelected.volume;
-    }
-
-    public void setMusicSelectedVolume(float volume)
-    {
-        MusicSelected.volume = volume;
-    }
-
-    public void stopMusicSelected()
-    {
-        MusicSelected.Stop();
     }
 
     private void SetButtonStatus(GameObject[] button, bool status)
