@@ -92,7 +92,7 @@ public class ManagerUI : MonoBehaviour
     public void PanelGameOver()
     {
         if (!gameInfo.IsPlayerDead) { return; }
-        GamePanel(GameOverPanel);
+        GameOverPanel.SetActive(true);
     }
 
     public void ResetGame()
