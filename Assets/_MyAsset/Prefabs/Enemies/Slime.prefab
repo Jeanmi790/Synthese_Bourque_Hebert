@@ -272,7 +272,7 @@ MonoBehaviour:
   maxHealth: 20
   healthBar: {fileID: 2554796147967813970}
   walkSpeed: 0.6
-  distance: 2.3
+  distance: 1.7
   attackPower: 2
   attackSpeed: 0.7
   radiusAttack:

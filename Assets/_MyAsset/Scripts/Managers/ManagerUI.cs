@@ -25,14 +25,15 @@ public class ManagerUI : MonoBehaviour
 
     private IGameInfo gameInfo;
 
+
     // Start is called before the first frame update
     private void Start()
     {
-       ClosePanel(OptionPanel);
+        GamePanel(OptionPanel, false);
 
-        ClosePanel(PausePanel);
-        ClosePanel(GameOverPanel);
-        ClosePanel(InstructionPanel);
+        GamePanel(PausePanel, false);
+        GamePanel(GameOverPanel, false);
+        GamePanel(InstructionPanel, false);
         isPaused = false;
         gameInfo = FindObjectOfType<GameManager>();
     }
@@ -45,28 +46,47 @@ public class ManagerUI : MonoBehaviour
         PanelGameOver();
     }
 
-    public void OpenPanel(GameObject panel)
+    private void GamePanel(GameObject panel, bool status)
     {
-        panel.SetActive(true);
+        panel.SetActive(status);
     }
 
-    public void ClosePanel(GameObject panel)
+    public void Instruction()
     {
-        panel.SetActive(false);
+        if (!InstructionPanel.activeSelf)
+        {
+            GamePanel(InstructionPanel, true);
+        }
+        else
+        {
+            GamePanel(InstructionPanel, false);
+        }
+    }
+
+    public void Option()
+    {
+        if (!OptionPanel.activeSelf)
+        {
+            GamePanel(OptionPanel, true);
+        }
+        else
+        {
+            GamePanel(OptionPanel, false);
+        }
     }
 
     public void PauseGame()
     {
-        if (Input.GetKey(KeyCode.Escape) && !isPaused && !gameInfo.IsPlayerDead)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isPaused && !gameInfo.IsPlayerDead)
         {
             Time.timeScale = 0;
-            OpenPanel(PausePanel);
+            GamePanel(PausePanel, true);
             isPaused = true;
         }
-        else if (Input.GetKey(KeyCode.Escape) && isPaused && !gameInfo.IsPlayerDead)
+        else if (Input.GetKeyDown(KeyCode.Escape) && isPaused && !gameInfo.IsPlayerDead)
         {
             Time.timeScale = 1;
-            ClosePanel(PausePanel);
+            GamePanel(PausePanel, false);
             isPaused = !true;
         }
     }
@@ -74,7 +94,7 @@ public class ManagerUI : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1;
-        ClosePanel(PausePanel);
+        GamePanel(PausePanel, false);
         isPaused = !true;
     }
 
@@ -87,15 +107,15 @@ public class ManagerUI : MonoBehaviour
     public void PanelGameOver()
     {
         if (!gameInfo.IsPlayerDead) { return; }
-        OpenPanel(GameOverPanel);
+        GamePanel(GameOverPanel, true);
     }
 
     public void ResetGame()
     {
         gameInfo.RestartGame();
         Time.timeScale = 1;
-        ClosePanel(GameOverPanel);
-        ClosePanel(PausePanel);
+        GamePanel(GameOverPanel, false);
+        GamePanel(PausePanel, false);
         isPaused = false;
     }
 }
