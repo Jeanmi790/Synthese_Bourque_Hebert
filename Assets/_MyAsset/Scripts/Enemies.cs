@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -7,16 +6,24 @@ public class Enemies : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] private int maxHealth;
+
     [SerializeField] private HealthBar healthBar;
+
     [Header("Movement")]
     [SerializeField] private float walkSpeed;
+
     [SerializeField] private float distance;
+
     [Header("Attacks")]
     [SerializeField] private float attackPower;
+
     [SerializeField] private float attackSpeed;
     [SerializeField] private float[] radiusAttack;
     [SerializeField] private Transform[] attackRadius;
     [SerializeField] private LayerMask playerLayer;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip[] sounds = default; // 0-attack, 1-hit, 2-die
 
     private SpawnManager spawnManager;
     private IGameInfo gameInfo;
@@ -28,6 +35,7 @@ public class Enemies : MonoBehaviour
     private int attackLenght;
     private int health;
     private float canAttack = -1f;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -35,7 +43,7 @@ public class Enemies : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    void Start()
+    private void Start()
     {
         spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         enemyAnim = GetComponent<Animator>();
@@ -43,10 +51,11 @@ public class Enemies : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform.Find("PointCentral").transform;
         attackLenght = enemyAnim.GetInteger("NumberAttack");
         gameInfo = GameObject.FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (target)
         {
@@ -56,7 +65,7 @@ public class Enemies : MonoBehaviour
         FlipSprite();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Walk();
         Attack();
@@ -87,7 +96,6 @@ public class Enemies : MonoBehaviour
             enemyRb.velocity = move;
             enemyAnim.SetBool("Walk", true);
         }
-
     }
 
     private void Attack()
@@ -99,6 +107,7 @@ public class Enemies : MonoBehaviour
             enemyAnim.SetBool("Attack", true);
             DealDamage(attackPower, randomAttack);
             canAttack = Time.time + 1f / attackSpeed;
+            PlaySound(sounds[0], false);
         }
         else
         {
@@ -106,12 +115,12 @@ public class Enemies : MonoBehaviour
         }
     }
 
-    void DealDamage(float dps, int attackNumber)
+    private void DealDamage(float dps, int attackNumber)
     {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackRadius[attackNumber].position, radiusAttack[attackNumber], playerLayer);
         foreach (Collider2D player in hitPlayer)
         {
-            player.GetComponent<Player>().TakingDamage(dps);    
+            player.GetComponent<Player>().TakingDamage(dps);
         }
     }
 
@@ -120,8 +129,7 @@ public class Enemies : MonoBehaviour
         health -= (int)dps;
         enemyAnim.SetTrigger("Hit");
         healthBar.SetHealth(health);
-
-        Debug.Log("HP:"+health);
+        PlaySound(sounds[1], false);
         if (health <= 0)
         {
             Die();
@@ -131,30 +139,35 @@ public class Enemies : MonoBehaviour
     private void Die()
     {
         enemyAnim.SetBool("Dead", true);
+        PlaySound(sounds[2], false);
         enemyRb.gravityScale = 0f;
         enemyRb.velocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
         gameInfo.AddScore(math.round(maxHealth * 0.65f));
-        Debug.Log("Enemy is dead");
         StartCoroutine(DestroyEnemy());
-        
     }
 
-    IEnumerator DestroyEnemy()
+    private IEnumerator DestroyEnemy()
     {
         yield return new WaitForSeconds(1.5f);
         Destroy(this.gameObject);
         spawnManager.SpawnPotion(this.transform.position);
-        
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         if (attackRadius == null)
             return;
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackRadius[randomAttack].position, radiusAttack[randomAttack]);
+    }
+
+    private void PlaySound(AudioClip clip, bool loop)
+    {
+        audioSource.clip = clip;
+        audioSource.loop = loop;
+        audioSource.Play();
     }
 }
