@@ -28,10 +28,11 @@ public class ManagerUI : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        OptionPanel.SetActive(false);
-        PausePanel.SetActive(false);
-        GameOverPanel.SetActive(false);
-        InstructionPanel.SetActive(false);
+       ClosePanel(OptionPanel);
+
+        ClosePanel(PausePanel);
+        ClosePanel(GameOverPanel);
+        ClosePanel(InstructionPanel);
         isPaused = false;
         gameInfo = FindObjectOfType<GameManager>();
     }

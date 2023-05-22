@@ -9,9 +9,16 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource MusicSelected = default;
 
     [Header("DisplayVolume")]
-    [SerializeField] private TMP_Text DisplayVolume = default;
+    [SerializeField] private TMP_Text DisplayVolume;
 
-    [SerializeField] private Slider volumeSlider = default;
+    [SerializeField] private Slider volumeSlider;
+
+    [Header("ButtonSound")]
+    [SerializeField] private GameObject[] buttonPlay = default;
+
+    [SerializeField] private GameObject[] buttonPause = default;
+    [SerializeField] private GameObject[] buttonMute = default;
+    [SerializeField] private GameObject[] buttonUnmute = default;
 
     private void Start()
     {
@@ -19,31 +26,48 @@ public class SoundManager : MonoBehaviour
         MusicSelected.volume = 0.15f;
         DisplayVolume.text = MusicSelected.volume.ToString("0.0");
         volumeSlider.value = MusicSelected.volume;
+
+        SetButtonStatus(buttonPlay, false);
+        SetButtonStatus(buttonPause,true );
+        SetButtonStatus(buttonMute, true);
+        SetButtonStatus(buttonUnmute, false);
     }
 
     private void Update()
     {
-        DisplayVolume.text = (MusicSelected.volume * 100f).ToString("0") + "%";
+        if(volumeSlider != null)
+        {
+            DisplayVolume.text = (MusicSelected.volume * 100f).ToString("0") + "%";
+        }
+       
     }
 
     public void playMusicSelected()
     {
         MusicSelected.Play();
+        SetButtonStatus(buttonPlay, false);
+        SetButtonStatus(buttonPause, true);
     }
 
     public void pauseMusicSelected()
     {
         MusicSelected.Pause();
+        SetButtonStatus(buttonPlay, true);
+        SetButtonStatus(buttonPause, false);
     }
 
     public void muteMusicSelected()
     {
         MusicSelected.mute = true;
+        SetButtonStatus(buttonMute, false);
+        SetButtonStatus(buttonUnmute, true);
     }
 
     public void unmuteMusicSelected()
     {
         MusicSelected.mute = false;
+        SetButtonStatus(buttonMute, true);
+        SetButtonStatus(buttonUnmute, false);
     }
 
     public float getMusicSelectedVolume()
@@ -59,5 +83,13 @@ public class SoundManager : MonoBehaviour
     public void stopMusicSelected()
     {
         MusicSelected.Stop();
+    }
+
+    private void SetButtonStatus(GameObject[] button, bool status)
+    {
+        foreach (GameObject buttonStatus in button)
+        {
+            buttonStatus.SetActive(status);
+        }
     }
 }
