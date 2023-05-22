@@ -1,24 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ManagerUI_StartScene : MonoBehaviour
 {
-[Header("InstructionPanel")]
-    [SerializeField] GameObject instructionPanel = default;
+    [Header("InstructionPanel")]
+    [SerializeField] private GameObject instructionPanel = default;
+
     [Header("OptionPanel")]
-    [SerializeField] GameObject optionPanel = default;
+    [SerializeField] private GameObject optionPanel = default;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         instructionPanel.SetActive(false);
         optionPanel.SetActive(false);
     }
 
-    public void openInstructionPanel() { instructionPanel.SetActive(true); }
-    public void closeInstructionPanel() { instructionPanel.SetActive(false); }
-    public void openOptionPanel() { optionPanel.SetActive(true); }
-    public void closeOptionPanel() { optionPanel.SetActive(false); }
-    
+    public void openPanel(GameObject panel)
+    { panel.SetActive(true); }
 
+    public void closePanel(GameObject panel)
+    { panel.SetActive(false); }
 }

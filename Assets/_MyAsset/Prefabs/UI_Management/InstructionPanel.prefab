@@ -686,11 +686,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ManagerUI_StartScene, Assembly-CSharp
-        m_MethodName: closeInstructionPanel
-        m_Mode: 1
+        m_MethodName: closePanel
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6843063691615594076}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -918,8 +918,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Mouvements: \nA et D pour d\xE9placer votre personnage\nW pour sauter\n\nAttaques:\nSpace
-    pour donner un coup d'\xE9p\xE9e\nF pour donner un coup de pied\n"
+  m_text: "Mouvements: \nA et D pour d\xE9placer votre personnage\nW pour sauter\n\nAttaques:\nClique
+    gauche pour donner un coup d'\xE9p\xE9e\nClique droit pour bloquer les attaques
+    ennemies\nF pour donner un coup de pied\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bf3abc2a6da7b1445856f7c674f3b033, type: 2}
   m_sharedMaterial: {fileID: 1505885493946684518, guid: bf3abc2a6da7b1445856f7c674f3b033, type: 2}
@@ -1021,8 +1022,8 @@ RectTransform:
   m_Father: {fileID: 6843063690408229014}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.16584039}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
