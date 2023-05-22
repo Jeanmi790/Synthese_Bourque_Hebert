@@ -231,16 +231,16 @@ public class Player : MonoBehaviour
         StartCoroutine(AttackSpeedPotionTimer());
     }
 
-    private IEnumerator AttackSpeedPotionTimer()
-    {
-        yield return new WaitForSeconds(10);
-        attackSpeed = initialAttackSpeed;
-    }
-
     public void StrengthPotion(float damage)
     {
         attackStrength = initialAttackStrength * 2;
         StartCoroutine(StrengthPotionTimer());
+    }
+
+    private IEnumerator AttackSpeedPotionTimer()
+    {
+        yield return new WaitForSeconds(10);
+        attackSpeed = initialAttackSpeed;
     }
 
     private IEnumerator StrengthPotionTimer()

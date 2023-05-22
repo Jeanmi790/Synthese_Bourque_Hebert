@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Potion : MonoBehaviour
 {
     [SerializeField] private int potionID = default;  //  0=HealthPotion   1=AttackSpeedPotion    2=StrengthPotion
+    PotionUI potionUI;
     SpriteRenderer sprite;
+
     private void Start()
     {
-       sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
+        sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
+        potionUI = FindObjectOfType<PotionUI>();
         StartCoroutine(DestroyPotion());
     }
 
@@ -39,9 +43,11 @@ public class Potion : MonoBehaviour
                     break;
                 case 1:
                     other.GetComponent<Player>().AttackSpeedPotion(2);
+                    potionUI.ShowAttackUI();
                     break;
                 case 2:
                     other.GetComponent<Player>().StrengthPotion(2);
+                    potionUI.ShowStrengthUI();
                     break;
             }
         }

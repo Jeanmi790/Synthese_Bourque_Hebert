@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionID: 1
+  potionUI: {fileID: 7588808341026876972, guid: 1e6519d95173af94c913f97f11e4ae7a, type: 3}
 --- !u!50 &-8347956046038185215
 Rigidbody2D:
   serializedVersion: 4
