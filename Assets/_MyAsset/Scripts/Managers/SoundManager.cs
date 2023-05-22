@@ -14,9 +14,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private Slider volumeSlider;
 
     [Header("ButtonSound")]
-    [SerializeField] private GameObject[] buttonPlay = default;
-
-    [SerializeField] private GameObject[] buttonPause = default;
     [SerializeField] private GameObject[] buttonMute = default;
     [SerializeField] private GameObject[] buttonUnmute = default;
 
@@ -27,8 +24,7 @@ public class SoundManager : MonoBehaviour
         DisplayVolume.text = MusicSelected.volume.ToString("0.0");
         volumeSlider.value = MusicSelected.volume;
 
-        SetButtonStatus(buttonPlay, false);
-        SetButtonStatus(buttonPause,true );
+
         SetButtonStatus(buttonMute, true);
         SetButtonStatus(buttonUnmute, false);
     }
@@ -45,15 +41,7 @@ public class SoundManager : MonoBehaviour
     public void playMusicSelected()
     {
         MusicSelected.Play();
-        SetButtonStatus(buttonPlay, false);
-        SetButtonStatus(buttonPause, true);
-    }
 
-    public void pauseMusicSelected()
-    {
-        MusicSelected.Pause();
-        SetButtonStatus(buttonPlay, true);
-        SetButtonStatus(buttonPause, false);
     }
 
     public void muteMusicSelected()
