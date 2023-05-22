@@ -4,13 +4,16 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject container = default;
+
     [Header("health")]
     [SerializeField] private int maxHealth;
+
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GameObject blood;
 
     [Header("Moving")]
     [SerializeField] private float walkSpeed = 4;
+
     [SerializeField] private float runSpeed = 8;
     [SerializeField] private float jump = 5;
     [SerializeField] private Transform radiusGroundCheck;
@@ -28,6 +31,9 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask enemiesLayers;
     [SerializeField] private float attackSpeed = 1f;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip[] sounds = default; // 0-attack, 1-hit, 2-block 3-die
+
     private Animator playerAnim = default;
     private Rigidbody2D playerRb = default;
     private SpawnManager spawnManager;
@@ -36,7 +42,7 @@ public class Player : MonoBehaviour
     private int health;
     private float initialAttackSpeed;
     private float initialAttackStrength;
-    
+    private AudioSource audioSource;
 
     private IGameInfo gameInfo;
 
@@ -55,6 +61,7 @@ public class Player : MonoBehaviour
         playerRb = GetComponent<Rigidbody2D>();
         initialAttackSpeed = attackSpeed;
         initialAttackStrength = attackStrength;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -81,9 +88,9 @@ public class Player : MonoBehaviour
         {
             actualWalkSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
             playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
-            
+
             playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
-  
+            
             playerAnim.SetBool("Jump", Input.GetButton("Jump"));
         }
 
@@ -97,8 +104,10 @@ public class Player : MonoBehaviour
 
         if (Input.GetButton("Horizontal") && Input.GetKey(KeyCode.LeftShift))
         {
+            
             GameObject newDustCloud = Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
             newDustCloud.transform.parent = container.transform;
+            
         }
     }
 
@@ -137,11 +146,13 @@ public class Player : MonoBehaviour
             {
                 SwordAttack();
                 nextAttackTime = Time.time + 1f / attackSpeed;
+                PlaySound(sounds[0], false);
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
                 KickAttack();
                 nextAttackTime = Time.time + 1f / attackSpeed;
+                PlaySound(sounds[0], false);
             }
         }
     }
@@ -177,12 +188,13 @@ public class Player : MonoBehaviour
         if (Block())
         {
             dps = dps / 2;
+            PlaySound(sounds[2], false);
         }
 
         health -= (int)dps;
         playerAnim.SetTrigger("Hit");
         healthBar.SetHealth(health);
-
+        PlaySound(sounds[1], false);
         Instantiate(blood, transform.position, Quaternion.identity);
         if (health <= 0)
         {
@@ -194,6 +206,7 @@ public class Player : MonoBehaviour
     {
         playerAnim.SetBool("Block", false);
         playerAnim.SetBool("Dead", true);
+        PlaySound(sounds[3], false);
         gameInfo.GameOver();
         playerRb.gravityScale = 0f;
         playerRb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -247,5 +260,12 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(10);
         attackStrength = initialAttackStrength;
+    }
+
+    private void PlaySound(AudioClip clip, bool loop)
+    {
+        audioSource.clip = clip;
+        audioSource.loop = loop;
+        audioSource.Play();
     }
 }
