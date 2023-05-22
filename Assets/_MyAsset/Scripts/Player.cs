@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     private int health;
     private float initialAttackSpeed;
     private float initialAttackStrength;
+    
 
     private IGameInfo gameInfo;
 
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
     {
         Attack();
         Block();
+        FlipSprite();
     }
 
     private void FixedUpdate()
@@ -110,8 +112,20 @@ public class Player : MonoBehaviour
             GameObject newDustCloud = Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
             newDustCloud.transform.parent = container.transform;
         }
-        
-        transform.localScale = new Vector3(isLeft ? -playerSize : playerSize, playerSize, playerSize);
+    }
+
+    private void FlipSprite()
+    {
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            transform.localScale = new Vector3(playerSize, playerSize, playerSize);
+            healthBar.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (Input.GetAxis("Horizontal") < 0)
+        {
+            transform.localScale = new Vector3(-playerSize, playerSize, playerSize);
+            healthBar.transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
 
     private void DealDamage(float dps)

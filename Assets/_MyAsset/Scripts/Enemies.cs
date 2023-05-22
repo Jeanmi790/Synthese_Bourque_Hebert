@@ -66,6 +66,7 @@ public class Enemies : MonoBehaviour
     {
         bool flipSprite = movement.x < 0;
         this.transform.rotation = Quaternion.Euler(new Vector3(0f, flipSprite ? 180f : 0f, 0f));
+        healthBar.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
     }
 
     private void Walk()
