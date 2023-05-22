@@ -2016,6 +2016,18 @@ PrefabInstance:
       propertyPath: container
       value: 
       objectReference: {fileID: 926379702}
+    - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: blockSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6c796daab49bd764c8264f32a1dad947, type: 3}
+    - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0068b3afddb78e44988d39bb543da87b, type: 3}
+    - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: runningSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ede612cfac9b8c846b82189433aad7bd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
 --- !u!1 &585857917
