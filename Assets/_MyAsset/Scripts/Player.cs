@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
     private Animator playerAnim = default;
     private Rigidbody2D playerRb = default;
     private SpawnManager spawnManager;
-    private bool isLeft = false;
     private float nextAttackTime = 0f;
     private float playerSize;
     private int health;
@@ -49,7 +48,6 @@ public class Player : MonoBehaviour
         gameInfo = FindObjectOfType<GameManager>();
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
@@ -59,7 +57,6 @@ public class Player : MonoBehaviour
         initialAttackStrength = attackStrength;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         Attack();
@@ -75,15 +72,6 @@ public class Player : MonoBehaviour
     private void Moving()
     {
         float x = Input.GetAxis("Horizontal");
-
-        if (x > 0)
-        {
-            isLeft = false;
-        }
-        else if (x < 0)
-        {
-            isLeft = true;
-        }
 
         isGrounded = Physics2D.OverlapCircle(radiusGroundCheck.position, radiusGround, groundLayers);
 
@@ -133,7 +121,6 @@ public class Player : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackRadius.position, radiusAttack, enemiesLayers);
         foreach (Collider2D Enemies in hitEnemies)
         {
-            //Debug.Log("Ennemie hit");
             Enemies.GetComponent<Enemies>().TakingDamage(dps);
         }
     }
