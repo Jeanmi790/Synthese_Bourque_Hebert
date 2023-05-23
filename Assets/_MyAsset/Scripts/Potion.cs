@@ -18,15 +18,17 @@ public class Potion : MonoBehaviour
 
     IEnumerator DestroyPotion()
     {
+        float fadeTime = 4f;
+        float alpha = 1f;
+
         yield return new WaitForSeconds(3f);
-        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.75f);
-        yield return new WaitForSeconds(1f);
-        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
-        yield return new WaitForSeconds(1f);
-        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.25f);
-        yield return new WaitForSeconds(1f);
-        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0f);   
-        yield return new WaitForSeconds(1f);
+        for (float t = 0.0f; t < fadeTime; t += Time.deltaTime)
+        {
+            alpha = Mathf.Lerp(1f, 0f, t / fadeTime);
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, alpha);
+            yield return null;
+        }
+
         Destroy(this.gameObject);
     }
 
