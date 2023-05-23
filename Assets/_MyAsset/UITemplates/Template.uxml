@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Template name="TemplateMainMenu" src="project://database/Assets/_MyAsset/UITemplates/TemplateMainMenu.uxml?fileID=9197481963319205126&amp;guid=85ec19309e5db704c8901a348397b498&amp;type=3#TemplateMainMenu" />
+    <Style src="project://database/Assets/_MyAsset/USS/MainMenuTemplate.uss?fileID=7433441132597879392&amp;guid=25e101f54954dcb4d85ae352b6f6d4c5&amp;type=3#MainMenuTemplate" />
+    <ui:Instance template="TemplateMainMenu" name="TemplateMainMenu" />
+</ui:UXML>
