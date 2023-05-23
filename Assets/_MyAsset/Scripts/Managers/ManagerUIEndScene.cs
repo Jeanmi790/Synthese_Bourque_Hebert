@@ -28,8 +28,9 @@ public class ManagerUIEndScene : MonoBehaviour
         inputPanel.SetActive(false);
 
         txtBestScore.text = PlayerPrefs.HasKey("BestScore") ? PlayerPrefs.GetFloat("BestScore").ToString() : defaultValue.ToString();
-        txtBestName.text = PlayerPrefs.HasKey("BestPlayer") ? PlayerPrefs.GetFloat("BestTime").ToString("00") + " sec" : defaultValue.ToString();
-        txtBestTime.text = PlayerPrefs.HasKey("BestTime") ? PlayerPrefs.GetString("BestPlayer") : defaultName;
+        txtBestName.text = PlayerPrefs.HasKey("BestPlayer") ? PlayerPrefs.GetString("BestPlayer") : defaultName;
+        txtBestTime.text = PlayerPrefs.HasKey("BestTime") ? PlayerPrefs.GetFloat("BestTime").ToString("00") + " sec" : defaultValue.ToString();
+
         txtScore.text = PlayerPrefs.HasKey("Score") ? PlayerPrefs.GetFloat("Score").ToString() : defaultValue.ToString();
         txtTime.text = PlayerPrefs.HasKey("Time") ? PlayerPrefs.GetFloat("Time").ToString("00") + " sec" : defaultValue.ToString();
 
