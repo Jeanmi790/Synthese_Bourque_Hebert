@@ -352,11 +352,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1892514743}
   - {fileID: 48983733}
   - {fileID: 691550958}
   - {fileID: 1114265562}
   - {fileID: 1959847403}
-  - {fileID: 1892514743}
   - {fileID: 1563856691}
   m_Father: {fileID: 864744611}
   m_RootOrder: 0
@@ -434,7 +434,7 @@ RectTransform:
   - {fileID: 1854657181}
   - {fileID: 775865984}
   m_Father: {fileID: 44798279}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2016,6 +2016,10 @@ PrefabInstance:
       propertyPath: container
       value: 
       objectReference: {fileID: 926379702}
+    - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: maxHealth
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
       propertyPath: blockSound
       value: 
@@ -42444,7 +42448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6843063691615594079, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6843063691615594079, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_AnchorMax.x
@@ -52816,7 +52820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2331643154028705276, guid: 3b3acefd8fb675541ab9a155a6292274, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2331643154028705276, guid: 3b3acefd8fb675541ab9a155a6292274, type: 3}
       propertyPath: m_AnchorMax.x
@@ -130596,7 +130600,7 @@ RectTransform:
   - {fileID: 127153243}
   - {fileID: 524629755}
   m_Father: {fileID: 44798279}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -130639,7 +130643,7 @@ RectTransform:
   - {fileID: 688692011}
   - {fileID: 2082991599}
   m_Father: {fileID: 44798279}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -132384,6 +132388,18 @@ MonoBehaviour:
       - m_Target: {fileID: 44798281}
         m_TargetAssemblyTypeName: ManagerScene, Assembly-CSharp
         m_MethodName: LoadMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 44798280}
+        m_TargetAssemblyTypeName: ManagerUI, Assembly-CSharp
+        m_MethodName: ResetGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

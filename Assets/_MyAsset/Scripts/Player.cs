@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float walkSpeed = 4;
 
     [SerializeField] private float runSpeed = 8;
-    [SerializeField] private float jump = 5;
     [SerializeField] private Transform radiusGroundCheck;
     [SerializeField] private float radiusGround = 0.2f;
     [SerializeField] private LayerMask groundLayers;
@@ -90,24 +89,15 @@ public class Player : MonoBehaviour
             playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
 
             playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
-            
-            playerAnim.SetBool("Jump", Input.GetButton("Jump"));
         }
 
         Vector2 direction = new Vector2(x * actualWalkSpeed, playerRb.velocity.y);
         playerRb.velocity = direction;
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            playerRb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
-        }
-
         if (Input.GetButton("Horizontal") && Input.GetKey(KeyCode.LeftShift))
         {
-            
             GameObject newDustCloud = Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
             newDustCloud.transform.parent = container.transform;
-            
         }
     }
 
@@ -174,6 +164,7 @@ public class Player : MonoBehaviour
         if (Input.GetButton("Fire2"))
         {
             playerAnim.SetBool("Block", true);
+
             return true;
         }
         else
@@ -188,13 +179,12 @@ public class Player : MonoBehaviour
         if (Block())
         {
             dps = dps / 2;
-            PlaySound(sounds[2], false);
         }
 
         health -= (int)dps;
         playerAnim.SetTrigger("Hit");
         healthBar.SetHealth(health);
-        PlaySound(sounds[1], false);
+        PlaySound(sounds[Block() ? 2 : 1], false);
         Instantiate(blood, transform.position, Quaternion.identity);
         if (health <= 0)
         {

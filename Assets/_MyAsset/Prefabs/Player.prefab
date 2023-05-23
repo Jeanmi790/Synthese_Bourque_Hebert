@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 0}
-  maxHealth: 300
+  maxHealth: 10
   healthBar: {fileID: 849554354332341884}
   blood: {fileID: 7685007716121171871, guid: a3f9ca837390c164d9e6180d2d8ac28d, type: 3}
   walkSpeed: 4

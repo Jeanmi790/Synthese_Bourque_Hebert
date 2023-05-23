@@ -26,29 +26,13 @@ public class ManagerUIEndScene : MonoBehaviour
     private void Start()
     {
         inputPanel.SetActive(false);
-        if (PlayerPrefs.HasKey("BestScore") && PlayerPrefs.HasKey("BestPlayer") && PlayerPrefs.HasKey("BestTime"))
-        {
-            txtBestScore.text = PlayerPrefs.GetFloat("BestScore").ToString();
-            txtBestTime.text = PlayerPrefs.GetFloat("BestTime").ToString("00") + " sec";
-            txtBestName.text = PlayerPrefs.GetString("BestPlayer");
-        }
-        else
-        {
-            txtBestScore.text = defaultValue.ToString();
-            txtBestTime.text = defaultValue.ToString();
-            txtBestName.text = defaultName;
-        }
 
-        if (PlayerPrefs.HasKey("Score") && PlayerPrefs.HasKey("Time"))
-        {
-            txtScore.text = PlayerPrefs.GetFloat("Score").ToString();
-            txtTime.text = PlayerPrefs.GetFloat("Time").ToString("00") + " sec";
-        }
-        else
-        {
-            txtScore.text = defaultValue.ToString();
-            txtTime.text = defaultValue.ToString();
-        }
+        txtBestScore.text = PlayerPrefs.HasKey("BestScore") ? PlayerPrefs.GetFloat("BestScore").ToString() : defaultValue.ToString();
+        txtBestName.text = PlayerPrefs.HasKey("BestPlayer") ? PlayerPrefs.GetFloat("BestTime").ToString("00") + " sec" : defaultValue.ToString();
+        txtBestTime.text = PlayerPrefs.HasKey("BestTime") ? PlayerPrefs.GetString("BestPlayer") : defaultName;
+        txtScore.text = PlayerPrefs.HasKey("Score") ? PlayerPrefs.GetFloat("Score").ToString() : defaultValue.ToString();
+        txtTime.text = PlayerPrefs.HasKey("Time") ? PlayerPrefs.GetFloat("Time").ToString("00") + " sec" : defaultValue.ToString();
+
         if (PlayerPrefs.GetFloat("Score") > PlayerPrefs.GetFloat("BestScore"))
         {
             inputPanel.SetActive(true);

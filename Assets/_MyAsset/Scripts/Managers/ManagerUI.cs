@@ -25,7 +25,6 @@ public class ManagerUI : MonoBehaviour
 
     private IGameInfo gameInfo;
 
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -93,6 +92,8 @@ public class ManagerUI : MonoBehaviour
     {
         if (!gameInfo.IsPlayerDead) { return; }
         GameOverPanel.SetActive(true);
+        OptionPanel.SetActive(false);
+        InstructionPanel.SetActive(false);
     }
 
     public void ResetGame()
@@ -100,7 +101,9 @@ public class ManagerUI : MonoBehaviour
         gameInfo.RestartGame();
         Time.timeScale = 1;
         GamePanel(GameOverPanel);
-        GamePanel(PausePanel);
+        PausePanel.SetActive(false);
+        OptionPanel.SetActive(false);
+        InstructionPanel.SetActive(false);
         isPaused = false;
     }
 }

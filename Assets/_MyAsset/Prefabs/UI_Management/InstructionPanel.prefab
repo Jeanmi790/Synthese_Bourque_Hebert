@@ -126,7 +126,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 640.8}
+  m_SizeDelta: {x: 0, y: 780.94}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &6843063690408229015
 GameObject:
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6843063692007188725}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.8341596
+  m_Size: 0.68446934
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -887,8 +887,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.002532959, y: -0.000061035156}
-  m_SizeDelta: {x: 866.55, y: 640.8}
+  m_AnchoredPosition: {x: 0.002532959, y: -0.000030517578}
+  m_SizeDelta: {x: 866.55, y: 780.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6843063691694137144
 CanvasRenderer:
@@ -918,9 +918,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Mouvements: \nA et D pour d\xE9placer votre personnage\nW pour sauter\n\nAttaques:\nClique
-    gauche pour donner un coup d'\xE9p\xE9e\nClique droit pour bloquer les attaques
-    ennemies\nF pour donner un coup de pied\n"
+  m_text: "Mouvements: \r\nA et D pour d\xE9placer votre personnage\r\n\r\nAttaques/Protection:\r\nClique
+    gauche pour donner un coup d'\xE9p\xE9e\r\nClique droite pour bloquer les attaques
+    ennemies\r\nF pour donner un coup de pied\r\n\r\nBut du jeu: Vous devez survivre
+    aux hordes de squelettes et de slime qui se sont prolif\xE9r\xE9s dans un ancien
+    royaume. Chaque ennemi abattu vous donne un pointage bas\xE9 sur sa vie.\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bf3abc2a6da7b1445856f7c674f3b033, type: 2}
   m_sharedMaterial: {fileID: 1505885493946684518, guid: bf3abc2a6da7b1445856f7c674f3b033, type: 2}
@@ -1022,8 +1024,8 @@ RectTransform:
   m_Father: {fileID: 6843063690408229014}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.31553066}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1127,7 +1129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.2509804, g: 0.25490198, b: 0.25490198, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
