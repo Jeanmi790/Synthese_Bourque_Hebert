@@ -1,0 +1,16 @@
+.ButtonStart {
+    background-color: rgba(11, 135, 11, 255);
+    align-items: center;
+    justify-content: center;
+}
+
+.ButtonStart:hover {
+    background-color: rgba(25, 87, 173, 255);
+}
+
+.BtnInstruction {
+}
+
+.BtnInstruction:hover {
+    background-color: rgba(221, 24, 24, 255);
+}
