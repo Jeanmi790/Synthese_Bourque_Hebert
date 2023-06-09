@@ -1968,6 +1968,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5024867350188720132, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5024867350188720135, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2017,6 +2021,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 926379702}
     - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
       propertyPath: maxHealth
       value: 300
       objectReference: {fileID: 0}
@@ -2028,6 +2036,10 @@ PrefabInstance:
       propertyPath: attackSound
       value: 
       objectReference: {fileID: 8300000, guid: 0068b3afddb78e44988d39bb543da87b, type: 3}
+    - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: radiusGround
+      value: 0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
       propertyPath: runningSound
       value: 
@@ -43584,7 +43596,7 @@ GameObject:
   - component: {fileID: 1030216049}
   - component: {fileID: 1030216051}
   - component: {fileID: 1030216050}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [Header("Moving")]
     [SerializeField] private float walkSpeed = 4;
 
+    [SerializeField] private float jumpForce = 5;
     [SerializeField] private float runSpeed = 8;
     [SerializeField] private Transform radiusGroundCheck;
     [SerializeField] private float radiusGround = 0.2f;
@@ -89,16 +90,18 @@ public class Player : MonoBehaviour
             playerAnim.SetBool("Moving", Input.GetButton("Horizontal"));
 
             playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
+            playerAnim.SetBool("Jump", Input.GetButton("Jump") && isGrounded);
         }
 
         Vector2 direction = new Vector2(x * actualWalkSpeed, playerRb.velocity.y);
-        playerRb.velocity = direction;
+        playerRb.velocity = Input.GetButton("Jump") && isGrounded ? Vector2.up * jumpForce : direction;
 
         if (Input.GetButton("Horizontal") && Input.GetKey(KeyCode.LeftShift))
         {
             GameObject newDustCloud = Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
             newDustCloud.transform.parent = container.transform;
         }
+        
     }
 
     private void FlipSprite()
