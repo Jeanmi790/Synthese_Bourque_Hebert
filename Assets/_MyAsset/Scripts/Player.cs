@@ -101,7 +101,6 @@ public class Player : MonoBehaviour
             GameObject newDustCloud = Instantiate(dustCloud, radiusGroundCheck.position, Quaternion.identity);
             newDustCloud.transform.parent = container.transform;
         }
-        
     }
 
     private void FlipSprite()
