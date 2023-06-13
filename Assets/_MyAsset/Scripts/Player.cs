@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [Header("Moving")]
     [SerializeField] private float walkSpeed = 4;
 
+    [SerializeField] private float rollSpeed = 8;
     [SerializeField] private float jumpForce = 5;
     [SerializeField] private float runSpeed = 8;
     [SerializeField] private Transform radiusGroundCheck;
@@ -91,9 +92,10 @@ public class Player : MonoBehaviour
 
             playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
             playerAnim.SetBool("Jump", Input.GetButton("Jump") && isGrounded);
+            playerAnim.SetBool("Roll", Input.GetKeyDown(KeyCode.Space));
         }
 
-        Vector2 direction = new Vector2(x * actualWalkSpeed, playerRb.velocity.y);
+        Vector2 direction = new Vector2(x * (Input.GetKeyDown(KeyCode.Space) ? rollSpeed : actualWalkSpeed), playerRb.velocity.y);
         playerRb.velocity = Input.GetButton("Jump") && isGrounded ? Vector2.up * jumpForce : direction;
 
         if (Input.GetButton("Horizontal") && Input.GetKey(KeyCode.LeftShift))
@@ -206,6 +208,8 @@ public class Player : MonoBehaviour
         this.enabled = false;
         spawnManager.mortJoueur();
     }
+
+
 
     private void OnDrawGizmosSelected()
     {
