@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -134,34 +135,64 @@ public class Player : MonoBehaviour
         {
             return;
         }
+
+        // Utiliser le temps de l'animation avant d'avoir la prochaine attaque? Animator playerAnim = GetComponent<Animator>();
+        //float waitfornextAttack = playerAnim.GetCurrentAnimatorStateInfo(0).length;
+
         if (Time.time >= nextAttackTime)
         {
             if (Input.GetButton("Fire1"))
             {
-                SwordAttack();
+
+                AttackType("Attack",attackStrength);
                 nextAttackTime = Time.time + 1f / attackSpeed;
                 PlaySound(sounds[0], false);
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
-                KickAttack();
+                AttackType("Kick",kickStrenght);
                 nextAttackTime = Time.time + 1f / attackSpeed;
                 PlaySound(sounds[0], false);
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                AttackType("AttackB",attackStrength);
+                nextAttackTime = Time.time + 1f / attackSpeed;
+                PlaySound(sounds[0], false);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                AttackType("AttackC",attackStrength);
+                nextAttackTime = Time.time + 1f / attackSpeed;
+                PlaySound(sounds[0], false);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                AttackType("AttackD",attackStrength);
+                nextAttackTime = Time.time + 1f / attackSpeed;
+                PlaySound(sounds[0], false);
+            }
+
         }
     }
 
-    private void SwordAttack()
+    private void AttackType(string type,float dps)
     {
-        playerAnim.SetTrigger("Attack");
-        DealDamage(attackStrength);
+        playerAnim.SetTrigger(type);
+        DealDamage(dps);
     }
+    //private void SwordAttack()
+    //{
+    //    playerAnim.SetTrigger("Attack");
+    //    DealDamage(attackStrength);
+    //}
 
-    private void KickAttack()
-    {
-        playerAnim.SetTrigger("Kick");
-        DealDamage(kickStrenght);
-    }
+    //private void KickAttack()
+    //{
+    //    playerAnim.SetTrigger("Kick");
+    //    DealDamage(kickStrenght);
+    //}
 
     private bool Block()
     {
