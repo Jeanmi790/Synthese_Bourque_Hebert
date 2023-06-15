@@ -685,8 +685,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ManagerUI_StartScene, Assembly-CSharp
-        m_MethodName: closePanel
+        m_TargetAssemblyTypeName: ManagerUI, Assembly-CSharp
+        m_MethodName: GamePanel
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 6843063691615594076}
@@ -713,7 +713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6843063691615594079
 RectTransform:
   m_ObjectHideFlags: 0
@@ -918,14 +918,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Mouvements: \r\nA et D pour d\xE9placer votre personnage\r\n\r\nAttaques/Protection:\r\nClique
+  m_text: "Mouvements: \r\nA et D pour d\xE9placer votre personnage\r\n\rW pour sauter\nAttaques/Protection:\r\nClique
     gauche pour donner un coup d'\xE9p\xE9e\r\nClique droite pour bloquer les attaques
-    ennemies\r\nF pour donner un coup de pied\r\n\r\nBut du jeu: Vous devez survivre
-    aux hordes de squelettes et de slime qui se sont prolif\xE9r\xE9s dans un ancien
-    royaume. Chaque ennemi abattu vous donne un pointage bas\xE9 sur sa vie.\r\n\nLorsqu'un
-    ennemie meurt, il est possible que celui-ci vous donne une potion.\n\nLa potion
-    rouge vous redonne des points de vie.\nLa potion bleu double votre vitesse d'attaque.\nLa
-    potion mauve double vos domage."
+    ennemies\r\nF pour donner un coup de pied\r\n1,2,3 pour des attaques diff\xE9rentes\n\r\nBut
+    du jeu: Vous devez survivre aux hordes de squelettes et de slime qui se sont
+    prolif\xE9r\xE9s dans un ancien royaume. Chaque ennemi abattu vous donne un pointage
+    bas\xE9 sur sa vie.\r\n\nLorsqu'un ennemie meurt, il est possible que celui-ci
+    vous donne une potion.\n\nLa potion rouge vous redonne des points de vie.\nLa
+    potion bleu double votre vitesse d'attaque.\nLa potion mauve double vos domage."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bf3abc2a6da7b1445856f7c674f3b033, type: 2}
   m_sharedMaterial: {fileID: 1505885493946684518, guid: bf3abc2a6da7b1445856f7c674f3b033, type: 2}

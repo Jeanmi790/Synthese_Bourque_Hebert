@@ -2029,6 +2029,10 @@ PrefabInstance:
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
+      propertyPath: rollSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024867350188720138, guid: 1b39d01c2839b884abb575bb8672b9dc, type: 3}
       propertyPath: blockSound
       value: 
       objectReference: {fileID: 8300000, guid: 6c796daab49bd764c8264f32a1dad947, type: 3}
@@ -42408,40 +42412,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6843063690271284158, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6843063690271284158, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6843063690271284158, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6843063691489541283, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 6843063691489541283, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 44798280}
-    - target: {fileID: 6843063691489541283, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GamePanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 6843063691489541283, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ManagerUI, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6843063691489541283, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 519900857}
-    - target: {fileID: 6843063691489541283, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6843063691615594076, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_Name
       value: InstructionPanel
@@ -42536,15 +42520,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6843063692007188725, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6843063692007188725, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6843063692007188725, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5833245
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
