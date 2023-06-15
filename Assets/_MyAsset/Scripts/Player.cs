@@ -7,11 +7,13 @@ public class Player : MonoBehaviour
 
     [Header("health")]
     [SerializeField] private int maxHealth;
+
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GameObject blood;
 
     [Header("Moving")]
     [SerializeField] private float walkSpeed = 4;
+
     [SerializeField] private float rollSpeed = 8;
     [SerializeField] private float jumpForce = 5;
     [SerializeField] private float runSpeed = 8;
@@ -23,6 +25,7 @@ public class Player : MonoBehaviour
 
     [Header("Attacks")]
     [SerializeField] private float attackStrength = 10;
+
     [SerializeField] private float kickStrenght = 5;
     [SerializeField] private float radiusAttack = 0.5f;
     [SerializeField] private Transform AttackRadius;
@@ -32,6 +35,7 @@ public class Player : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip[] sounds = default; // 0-attack, 1-hit, 2-block 3-die
 
+    private string[] attackName = { "PlayerAttack", "PlayerKick", "PlayerAttackB", "PlayerAttackC", "PlayerAttackD", "PlayerJumpAttack", };
     private Animator playerAnim = default;
     private Rigidbody2D playerRb = default;
     private SpawnManager spawnManager;
@@ -139,47 +143,48 @@ public class Player : MonoBehaviour
         {
             if (Input.GetButton("Fire1"))
             {
-                AttackType("Attack", attackStrength);
+                AttackType(attackName[0], attackStrength);
                 nextAttackTime = Time.time + 1f / attackSpeed;
                 PlaySound(sounds[0], false);
             }
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKey(KeyCode.F))
             {
-                AttackType("Kick", kickStrenght);
+                AttackType(attackName[1], kickStrenght);
                 nextAttackTime = Time.time + 1f / attackSpeed;
                 PlaySound(sounds[0], false);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKey(KeyCode.Alpha1))
             {
-                AttackType("AttackB", attackStrength);
+                AttackType(attackName[2], attackStrength);
                 nextAttackTime = Time.time + 1f / attackSpeed;
                 PlaySound(sounds[0], false);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKey(KeyCode.Alpha2))
             {
-                AttackType("AttackC", attackStrength);
+                AttackType(attackName[3], attackStrength);
                 nextAttackTime = Time.time + 1f / attackSpeed;
                 PlaySound(sounds[0], false);
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKey(KeyCode.Alpha3))
             {
-                AttackType("AttackD", attackStrength);
+                AttackType(attackName[4], attackStrength);
                 nextAttackTime = Time.time + 1f / attackSpeed;
                 PlaySound(sounds[0], false);
             }
-            if (Input.GetButton("Jump") && Input.GetButton("Fire1"))
+            if (!isGrounded && Input.GetButton("Fire1"))
             {
-                AttackType("JumpAttack", attackStrength);
+                AttackType(attackName[5], attackStrength);
                 nextAttackTime = Time.time + 1f / attackSpeed;
                 PlaySound(sounds[0], false);
+                playerRb.velocity = Vector2.down * 0.5f;
             }
         }
     }
 
     private void AttackType(string type, float dps)
     {
-        playerAnim.SetTrigger(type);
+        playerAnim.Play(type);
         DealDamage(dps);
     }
 
