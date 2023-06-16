@@ -95,7 +95,11 @@ public class Player : MonoBehaviour
 
             playerAnim.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
             playerAnim.SetBool("Jump", Input.GetButton("Jump") && isGrounded);
-            playerAnim.SetBool("Roll", Input.GetKeyDown(KeyCode.Space) && isGrounded);
+
+            if (Input.GetButton("Horizontal") && Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                playerAnim.Play("Roll");
+            }
         }
 
         Vector2 direction = new Vector2(x * (Input.GetKeyDown(KeyCode.Space) ? rollSpeed : actualWalkSpeed), playerRb.velocity.y);
@@ -206,19 +210,22 @@ public class Player : MonoBehaviour
 
     public void TakingDamage(float dps)
     {
-        if (Block())
+        if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Roll"))
         {
-            dps = dps / 2;
-        }
+            if (Block())
+            {
+                dps = dps / 2;
+            }
 
-        health -= (int)dps;
-        playerAnim.Play(playerHitType[Random.Range(0, 2)]);
-        healthBar.SetHealth(health);
-        PlaySound(sounds[Block() ? 2 : 1], false);
-        Instantiate(blood, transform.position, Quaternion.identity);
-        if (health <= 0)
-        {
-            Die();
+            health -= (int)dps;
+            playerAnim.Play(playerHitType[Random.Range(0, 2)]);
+            healthBar.SetHealth(health);
+            PlaySound(sounds[Block() ? 2 : 1], false);
+            Instantiate(blood, transform.position, Quaternion.identity);
+            if (health <= 0)
+            {
+                Die();
+            }
         }
     }
 
