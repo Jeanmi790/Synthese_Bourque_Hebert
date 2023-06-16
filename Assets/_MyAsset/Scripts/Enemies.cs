@@ -124,12 +124,14 @@ public class Enemies : MonoBehaviour
         }
     }
 
-    public void TakingDamage(float dps)
+    public void TakingDamage(float dps, float impulse)
     {
         health -= (int)dps;
         enemyAnim.SetTrigger("Hit");
         healthBar.SetHealth(health);
+        enemyRb.AddForce(new Vector2(impulse, 0f), ForceMode2D.Impulse);
         PlaySound(sounds[1], false);
+
         if (health <= 0)
         {
             Die();

@@ -12,13 +12,7 @@ public abstract class Character : MonoBehaviour
     protected float persoSize;
     protected Rigidbody2D persoRb;
 
-
-
-
     protected abstract void Mouvement();
 
-
     protected abstract void Attaquer();
-
-
 }
