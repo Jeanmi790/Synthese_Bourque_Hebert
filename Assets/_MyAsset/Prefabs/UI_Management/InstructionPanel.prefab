@@ -685,8 +685,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ManagerUI, Assembly-CSharp
-        m_MethodName: GamePanel
+        m_TargetAssemblyTypeName: ManagerUI_StartScene, Assembly-CSharp
+        m_MethodName: closePanel
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 6843063691615594076}
@@ -1028,7 +1028,7 @@ RectTransform:
   m_Father: {fileID: 6843063690408229014}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5833245}
+  m_AnchorMin: {x: 0, y: 0.31553066}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}

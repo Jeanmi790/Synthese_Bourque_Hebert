@@ -42462,6 +42462,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 44798280}
+    - target: {fileID: 6843063691489541283, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GamePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843063691489541283, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ManagerUI, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6843063691615594076, guid: 1c5b3aaaca1d79f42abc4b5c6815b171, type: 3}
       propertyPath: m_Name
       value: InstructionPanel
