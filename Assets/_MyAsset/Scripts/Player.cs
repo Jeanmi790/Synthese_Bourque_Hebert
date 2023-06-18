@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Container")]
     [SerializeField] private GameObject container = default;
 
     [Header("health")]
     [SerializeField] private int maxHealth;
 
+    private int health;
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private GameObject blood;
 
-    [Header("Moving")]
+    [Header("Movements Attributes")]
     [SerializeField] private float walkSpeed = 4;
 
     [SerializeField] private float rollSpeed = 8;
@@ -23,9 +25,11 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject dustCloud;
     private bool isGrounded;
 
-    [Header("Attacks")]
-    private readonly string[] attackName = { "PlayerAttack", "PlayerKick", "PlayerAttackB", "PlayerAttackC", "PlayerAttackD", "PlayerJumpAttack" };
+    [Header("Attacks Attributes")]
+    private float initialAttackSpeed;
 
+    private float initialAttackStrength;
+    private readonly string[] attackName = { "PlayerAttack", "PlayerKick", "PlayerAttackB", "PlayerAttackC", "PlayerAttackD", "PlayerJumpAttack" };
     private readonly string[] playerHitType = { "PlayerHitA", "PlayerHitB" };
 
     [SerializeField] private float[] attackStrength = { 10, 5, 7, 12, 20, 15 }; // 0-attack, 1-kick, 2-attackB, 3-attackC, 4-attackD, 5-jumpAttack
@@ -43,9 +47,7 @@ public class Player : MonoBehaviour
     private SpawnManager spawnManager;
     private float nextAttackTime = 0f;
     private float playerSize;
-    private int health;
-    private float initialAttackSpeed;
-    private float initialAttackStrength;
+
     private AudioSource audioSource;
 
     private IGameInfo gameInfo;
